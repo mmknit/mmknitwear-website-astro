@@ -5,7 +5,7 @@ import config from '../astro.config.mjs';
 
 const base = (config.base ?? '/').replace(/\/+$/, '');
 const prefix = base === '' ? '/' : `${base}/`;
-const baseEsc = base ? base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') : '';
+const baseEsc = base ? base.replace(/^\/+/, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&') : '';
 const skip = base ? `(?!${baseEsc}/)` : '';
 const reDouble = new RegExp(`="/(?!/)${skip}`, 'g');
 const reSingle = new RegExp(`='/(?!/)${skip}`, 'g');

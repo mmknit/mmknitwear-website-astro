@@ -1,32 +1,610 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import VideoEmbed from '../components/VideoEmbed.astro';
+import CTASection from '../components/CTASection.astro';
+import { ld, breadcrumb, siteUrl } from '../utils/seo';
 
-const title = "About Us | M.M. Knitwear Ltd. - Knitwear Manufacturer in Bangladesh";
-const description = "M.M. Knitwear Ltd.: export-oriented knit composite manufacturer in Gazipur, Bangladesh, producing quality apparel since 2001.";
-const canonical = "/about-us/";
-const jsonLd = [
-  "<script type=\"application/ld+json\">\n    {\n      \"@context\": \"https://schema.org\",\n      \"@type\": \"BreadcrumbList\",\n      \"itemListElement\": [\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 1,\n          \"name\": \"Home\",\n          \"item\": \"https://www.mmknitwear.com/index.html\"\n        },\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 2,\n          \"name\": \"About Us\",\n          \"item\": \"https://www.mmknitwear.com/about-us.html\"\n        }\n      ]\n    }\n    </script>"
+const base = import.meta.env.BASE_URL;
+const u = (p: string) => base + p;
+
+const title = 'About Us | M.M. Knitwear Ltd. – Knitwear Manufacturer in Bangladesh';
+const description =
+  'Founded in September 2001, M.M. Knitwear Ltd. is a 100% export-oriented knit composite manufacturer in Gazipur, Bangladesh with 10,982 employees and 200,000 pieces of daily production capacity.';
+const keywords =
+  'about mm knitwear, knit composite manufacturer bangladesh, export oriented garment factory, garment factory gazipur, mm knitwear history';
+
+const quickFacts = [
+  { label: 'Year of Establishment', value: 'September 2001' },
+  { label: 'Annual Turnover', value: '$140M USD (2026)' },
+  { label: 'Production Capacity', value: '200,000 pcs/day' },
+  { label: 'Production Lines', value: '116 lines / 3,850 machines' },
 ];
-const headStyle = [
-  // none
+
+const welfare = [
+  'Elected workers\u2019 welfare committee to improve morale, job satisfaction and attendance',
+  'Canteen service with subsidized lunch for employees',
+  'Free snacks on duty',
+  'Full-time free medical service provided by two professional doctors on site',
+  'Child care centre for employees and an annual picnic',
+  'In-house prayer facilities for men and women',
+  'Annual cultural celebration',
 ];
-const footerScripts = "";
-const content = "<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 115px 0px 0px 0px;\">\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                \n\t\t\t\t\t\t\t\t<div class=\"gdlr-core-pbf-column gdlr-core-column-45 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \" style=\"padding: 109px 80px 80px 0px;\" data-sync-height=\"height-3\">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 35px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h1 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 36px;letter-spacing: 0px;text-transform: none;\">About Us<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h1></div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 0px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 15px;\">\n                                                        <p>M.M. Knitwear Ltd. is a 100% export-oriented knit composite manufacturer established in September 2001 in Gazipur, Bangladesh. From our head office in Uttara, Dhaka and our factory at Ambagh Road, Konabari, we design and produce high-quality knitted apparel for leading international brands, independent boutiques and specialist retailers across Europe and beyond.</p>\n                                                        <p>We aim to continue developing with the latest manufacturing technologies available to accommodate large orders and satisfy our clients well. Our strength as a private company enables us to create an organic environment that provides opportunity for our people to grow as we do. M.M. Knitwear Ltd. has already been recognised by many influential business leaders in Bangladesh and is well on its way to becoming an industrial institution in one of the world's rising economies.</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-icon-list-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"padding-bottom: 0px;\">\n                                                    <ul>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag\" style=\"color: #4c4c4c;font-size: 16px;width: 16px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear\" style=\"color: #4c4c4c;font-size: 16px;width: 16px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>Year of establishment:</b> September 2001.</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag\" style=\"color: #4c4c4c;font-size: 16px;width: 16px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear\" style=\"color: #4c4c4c;font-size: 16px;width: 16px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>Annual turnover:</b> 140.00 million US Dollars (2026).</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag\" style=\"color: #4c4c4c;font-size: 16px;width: 16px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear\" style=\"color: #4c4c4c;font-size: 16px;width: 16px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>Production capacity:</b> 200,000 pieces/day across 116 production lines with 3,850 sewing machines.</span></li>\n                                                    </ul>\n                                                </div>\n                                            </div>\n\t\t\t\t\t\t\t\t\t\t\t\n                                        </div>\n                                    </div>\n                                </div>\n                                \n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-right\" style=\"padding: 130px 0px 110px 70px;\" data-sync-height=\"height-1\" data-sync-height-center=\"\">\n\t\t\t\t\t\t\t\t\t<div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f1f0f0 ;\">\n                                            <div class=\"gdlr-core-pbf-background gdlr-core-parallax gdlr-core-js\" style=\"background-image: url(/upload/mm-factory-1281.jpg);background-size: cover;background-position: center;\" data-parallax-speed=\"0.2\"></div>\n                                        </div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\" data-gdlr-animation=\"fadeInLeft\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\"></div>\n                                        \n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-left\" style=\"padding: 100px 100px 0px 0px;\" data-sync-height=\"height-1\">\n                                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f1f0f0 ;\">\n                                            <div class=\"gdlr-core-pbf-background gdlr-core-parallax gdlr-core-js\" style=\"background-image: url(/upload/quality-policy.jpg);background-size: cover;background-position: center;\" data-parallax-speed=\"0.2\"></div>\n                                        </div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\" data-gdlr-animation=\"fadeInLeft\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\"></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-right\" style=\"padding: 130px 0px 110px 70px;\" data-sync-height=\"height-1\" data-sync-height-center=\"\">\n                                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f2f2f2 ;\"></div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\" data-gdlr-animation=\"fadeInRight\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 25px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 33px;letter-spacing: 0px;text-transform: none;\">Quality Policy<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 15px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 17px;\">\n                                                        <p>We strive to achieve customer excellence by exceeding expectations of product quality, performance and delivery. We are committed to implementing quality management systems that conform to international standards. Our drive to build a sustainable business through continuous improvement, quality management, attention to detail and a strict commitment to our buyers’s requirements continues to gain momentum. Thank you to all our clients for making this dream a reality.</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            \n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-left\" style=\"padding: 135px 80px 110px 0px;\" data-sync-height=\"height-2\" data-sync-height-center=\"\">\n                                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #ffffff ;\"></div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\" data-gdlr-animation=\"fadeInLeft\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 35px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 36px;letter-spacing: 0px;text-transform: none;\">Welfare Facilities<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 25px;\">\n                                                    \n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-icon-list-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-icon-list-with-background-circle\" style=\"padding-bottom: 0px;\">\n                                                    <ul>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Elected workers' welfare committee (aimed at improving morale, job satisfaction and attendance)</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Canteen service</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Subsidized lunch for employees</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Free snacks on duty</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Full-time free medical service provided by two professional doctors on site</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Child care centre for employees and an annual picnic.</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">In-house prayer facilities for men and women.</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Annual cultural celebration</span></li>\n                                                    </ul>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30\" data-skin=\"Dark\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-right\" style=\"padding: 110px 0px 50px 80px;\" data-sync-height=\"height-2\">\n                                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #1f1f1f ;\"></div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\" data-gdlr-animation=\"fadeInRight\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-column-service-item gdlr-core-item-pdb  gdlr-core-left-align gdlr-core-column-service-icon-left gdlr-core-no-caption gdlr-core-item-pdlr\">\n                                                    <div class=\"gdlr-core-column-service-media gdlr-core-media-image\" style=\"margin-top: 15px;margin-right: 55px;\"><img src=\"/upload/about-icon-1.png\" alt=\"Compliance icon\" width=\"60\" height=\"60\" loading=\"lazy\"></div>\n                                                    <div class=\"gdlr-core-column-service-content-wrapper\">\n                                                        <div class=\"gdlr-core-column-service-title-wrap\">\n                                                            <h2 class=\"gdlr-core-column-service-title\" style=\"font-size: 21px;text-transform: none;\">Compliance</h2></div>\n                                                        <div class=\"gdlr-core-column-service-content\" style=\"font-size: 14px;\">\n                                                            <p>Our factory maintains full compliance with international laws and standards covering human rights, social compliance, technical compliance, C-TPAT, labour law and other rules and instructions set by the relevant authorities.</p>\n                                                        </div>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-column-service-item gdlr-core-item-pdb  gdlr-core-left-align gdlr-core-column-service-icon-left gdlr-core-no-caption gdlr-core-item-pdlr\">\n                                                    <div class=\"gdlr-core-column-service-media gdlr-core-media-image\" style=\"margin-top: 15px;margin-right: 55px;margin-left: 5px;\"><img src=\"/upload/about-icon-2.png\" alt=\"Employee and social commitment icon\" width=\"56\" height=\"64\" loading=\"lazy\"></div>\n                                                    <div class=\"gdlr-core-column-service-content-wrapper\">\n                                                        <div class=\"gdlr-core-column-service-title-wrap\">\n                                                            <h2 class=\"gdlr-core-column-service-title\" style=\"font-size: 21px;text-transform: none;\">Employee & Social Commitment</h2></div>\n                                                        <div class=\"gdlr-core-column-service-content\" style=\"font-size: 14px;\">\n                                                            <p>As an organisation, our strength is focused on our employees and the development of their skills, enabling us to offer the best products and services to our customers. Through sponsorship, we also support local, regional and national sports and charity initiatives.</p>\n                                                        </div>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-column-service-item gdlr-core-item-pdb  gdlr-core-left-align gdlr-core-column-service-icon-left gdlr-core-no-caption gdlr-core-item-pdlr\" style=\"padding-bottom: 0px;\">\n                                                    <div class=\"gdlr-core-column-service-media gdlr-core-media-image\" style=\"margin: 15px 43px 0px 13px;\"><img src=\"/upload/about-icon-3.png\" alt=\"Sustainable development icon\" width=\"60\" height=\"61\" loading=\"lazy\"></div>\n                                                    <div class=\"gdlr-core-column-service-content-wrapper\">\n                                                        <div class=\"gdlr-core-column-service-title-wrap\">\n                                                            <h2 class=\"gdlr-core-column-service-title\" style=\"font-size: 21px;text-transform: none;\">Sustainable Development</h2></div>\n                                                        <div class=\"gdlr-core-column-service-content\" style=\"font-size: 14px;\">\n                                                            <p>Since the beginning we have always strived to provide the best quality products to our customers that are sourced and manufactured ethically. We are continuously looking to work more sustainably to reduce plastic consumption. All our facilities strictly maintains OEKO-TEX and other compliances to reduce the use of energy consumption, waste management and safe working environment. </p>\n                                                        </div>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 110px 0px 70px 0px;\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f4f7fb ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 50px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 45px;letter-spacing: 0px;text-transform: none;\">Facilities at a Glance<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2>\n                                            <div style=\"width: 64px;height: 3px;background: #2d9bea;border-radius: 2px;margin: 12px auto 0;\"></div></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"background: #ffffff;border: 1px solid #e3ebf4;border-top: 3px solid #2d9bea;border-radius: 10px;padding: 34px 20px 30px;box-shadow: 0 8px 20px rgba(30,95,168,0.08);\">\n                                                    <div class=\"gdlr-core-counter-item-top-icon gdlr-core-skin-title\" style=\"font-size: 32px;margin-bottom: 14px;color: #1e5fa8;\"><i class=\"fa-icon-building-o\"></i></div>\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 16px;\">Area of Factory</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 40px;color: #1e5fa8;margin-bottom: 14px;\">15,23,000</div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\" style=\"font-size: 13px;color: #828282;\">Square feet</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"background: #ffffff;border: 1px solid #e3ebf4;border-top: 3px solid #2d9bea;border-radius: 10px;padding: 34px 20px 30px;box-shadow: 0 8px 20px rgba(30,95,168,0.08);\">\n                                                    <div class=\"gdlr-core-counter-item-top-icon gdlr-core-skin-title\" style=\"font-size: 32px;margin-bottom: 14px;color: #1e5fa8;\"><i class=\"fa-icon-users\"></i></div>\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 16px;\">Number of Employees</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 40px;color: #1e5fa8;margin-bottom: 14px;\">10,982</div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\" style=\"font-size: 13px;color: #828282;\">Male 7,044 (64%) / Female 3,938 (36%)</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"background: #ffffff;border: 1px solid #e3ebf4;border-top: 3px solid #2d9bea;border-radius: 10px;padding: 34px 20px 30px;box-shadow: 0 8px 20px rgba(30,95,168,0.08);\">\n                                                    <div class=\"gdlr-core-counter-item-top-icon gdlr-core-skin-title\" style=\"font-size: 32px;margin-bottom: 14px;color: #1e5fa8;\"><i class=\"fa-icon-scissors\"></i></div>\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 16px;\">Garments Capacity</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 40px;color: #1e5fa8;margin-bottom: 14px;\">200,000</div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\" style=\"font-size: 13px;color: #828282;\">Pcs per day across 116 lines / 3,850 machines</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"background: #ffffff;border: 1px solid #e3ebf4;border-top: 3px solid #2d9bea;border-radius: 10px;padding: 34px 20px 30px;box-shadow: 0 8px 20px rgba(30,95,168,0.08);\">\n                                                    <div class=\"gdlr-core-counter-item-top-icon gdlr-core-skin-title\" style=\"font-size: 32px;margin-bottom: 14px;color: #1e5fa8;\"><i class=\"fa-icon-industry\"></i></div>\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 16px;\">Fabric Capacity</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 40px;color: #1e5fa8;margin-bottom: 14px;\">45 + 45</div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\" style=\"font-size: 13px;color: #828282;\">Knitting &amp; Dyeing, tons per day</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 30px; padding-top: 35px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h3 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 26px;letter-spacing: 0px;text-transform: none;\"><i class=\"fa-icon-diamond\" style=\"color: #2d9bea;margin-right: 10px;\"></i>Embellishment Capacity<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h3>\n                                            <div style=\"width: 48px;height: 3px;background: #2d9bea;border-radius: 2px;margin: 12px auto 0;\"></div></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"background: #ffffff;border: 1px solid #e3ebf4;border-top: 3px solid #2d9bea;border-radius: 10px;padding: 34px 20px 30px;box-shadow: 0 8px 20px rgba(30,95,168,0.08);\">\n                                                    <div class=\"gdlr-core-counter-item-top-icon gdlr-core-skin-title\" style=\"font-size: 32px;margin-bottom: 14px;color: #1e5fa8;\"><i class=\"fa-icon-paint-brush\"></i></div>\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 16px;\">All Over Print</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 40px;color: #1e5fa8;margin-bottom: 14px;\">15</div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\" style=\"font-size: 13px;color: #828282;\">Tons per day</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"background: #ffffff;border: 1px solid #e3ebf4;border-top: 3px solid #2d9bea;border-radius: 10px;padding: 34px 20px 30px;box-shadow: 0 8px 20px rgba(30,95,168,0.08);\">\n                                                    <div class=\"gdlr-core-counter-item-top-icon gdlr-core-skin-title\" style=\"font-size: 32px;margin-bottom: 14px;color: #1e5fa8;\"><i class=\"fa-icon-print\"></i></div>\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 16px;\">Placement Print</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 40px;color: #1e5fa8;margin-bottom: 14px;\">200,000</div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\" style=\"font-size: 13px;color: #828282;\">Pcs per day</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"background: #ffffff;border: 1px solid #e3ebf4;border-top: 3px solid #2d9bea;border-radius: 10px;padding: 34px 20px 30px;box-shadow: 0 8px 20px rgba(30,95,168,0.08);\">\n                                                    <div class=\"gdlr-core-counter-item-top-icon gdlr-core-skin-title\" style=\"font-size: 32px;margin-bottom: 14px;color: #1e5fa8;\"><i class=\"fa-icon-star\"></i></div>\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 16px;\">Embroidery</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 40px;color: #1e5fa8;margin-bottom: 14px;\">50,000</div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\" style=\"font-size: 13px;color: #828282;\">Pcs per day</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"background: #ffffff;border: 1px solid #e3ebf4;border-top: 3px solid #2d9bea;border-radius: 10px;padding: 34px 20px 30px;box-shadow: 0 8px 20px rgba(30,95,168,0.08);\">\n                                                    <div class=\"gdlr-core-counter-item-top-icon gdlr-core-skin-title\" style=\"font-size: 32px;margin-bottom: 14px;color: #1e5fa8;\"><i class=\"fa-icon-tint\"></i></div>\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 16px;\">Washing</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 40px;color: #1e5fa8;margin-bottom: 14px;\">30,000</div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\" style=\"font-size: 13px;color: #828282;\">Pcs per day</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-center-align\" style=\"padding-top: 25px;\">\n                                        <div class=\"gdlr-core-text-box-item-content\" style=\"max-width: 880px;margin: 0 auto;background: #ffffff;border: 1px solid #e3ebf4;border-radius: 10px;padding: 28px 40px;box-shadow: 0 8px 20px rgba(30,95,168,0.06);font-size: 15px;color: #5a5a5a;\">\n                                            <p style=\"margin-bottom: 12px;\"><strong>Our factory is located just 22 km from Hazrat Shahjalal International Airport.</strong></p>\n                                            <p style=\"margin: 0;\">We produce all types of knit products, especially T-shirts, Polo shirts, Henley, Jogger, Leggings, Bermuda, Dresses, Sweatshirts, Vests, Tank tops, Skirts, Bodysuits, Coveralls, Nightwear and Loungewear.</p>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 80px 0px 90px 0px;\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f0f0f0 ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 50px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 45px;letter-spacing: 0px;text-transform: none;\">Our Business Growth<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \" style=\"padding-right: 40px;\">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 15px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h3 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 30px;letter-spacing: 0px;text-transform: none;\">Annual Turnover <span style=\"color: #2d9bea;\">$140M</span><span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h3></div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 25px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 15px;\">\n                                                        <p>Year after year turnover (in million USD):</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div style=\"display: flex; align-items: flex-end; justify-content: space-between; height: 220px; border-bottom: 2px solid #cfcfcf; padding: 0 5px;\">\n                                                    <div style=\"width: 17%; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;\">\n                                                        <div style=\"height: 144px; background: #2d9bea; color: #fff; font-size: 12px; line-height: 22px;\">$90M</div>\n                                                        <div style=\"margin-top: 8px; font-size: 13px; color: #666; height: 18px;\">2022</div>\n                                                    </div>\n                                                    <div style=\"width: 17%; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;\">\n                                                        <div style=\"height: 184px; background: #2d9bea; color: #fff; font-size: 12px; line-height: 22px;\">$115M</div>\n                                                        <div style=\"margin-top: 8px; font-size: 13px; color: #666; height: 18px;\">2023</div>\n                                                    </div>\n                                                    <div style=\"width: 17%; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;\">\n                                                        <div style=\"height: 192px; background: #2d9bea; color: #fff; font-size: 12px; line-height: 22px;\">$120M</div>\n                                                        <div style=\"margin-top: 8px; font-size: 13px; color: #666; height: 18px;\">2024</div>\n                                                    </div>\n                                                    <div style=\"width: 17%; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;\">\n                                                        <div style=\"height: 200px; background: #3da7f0; color: #fff; font-size: 12px; line-height: 22px;\">$125M</div>\n                                                        <div style=\"margin-top: 8px; font-size: 13px; color: #666; height: 18px;\">2025</div>\n                                                    </div>\n                                                    <div style=\"width: 17%; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;\">\n                                                        <div style=\"height: 189px; background: #2d9bea; color: #fff; font-size: 12px; line-height: 22px;\">$118M</div>\n                                                        <div style=\"margin-top: 8px; font-size: 13px; color: #666; height: 18px;\">2026</div>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \" style=\"padding-left: 40px;\">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 15px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h3 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 28px;letter-spacing: 0px;text-transform: none;\">Business Share<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h3></div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <ul style=\"list-style: none; margin: 0 0 25px 0; padding: 0; font-size: 15px; line-height: 1.8;\">\n                                                    <li style=\"padding: 4px 0; border-bottom: 1px solid #e4e4e4;\"><b>Spain</b> <span style=\"float: right; color: #2d9bea; font-weight: bold;\">35.40%</span></li>\n                                                    <li style=\"padding: 4px 0; border-bottom: 1px solid #e4e4e4;\"><b>Germany</b> <span style=\"float: right; color: #2d9bea; font-weight: bold;\">19.00%</span></li>\n                                                    <li style=\"padding: 4px 0; border-bottom: 1px solid #e4e4e4;\"><b>France</b> <span style=\"float: right; color: #2d9bea; font-weight: bold;\">18.30%</span></li>\n                                                    <li style=\"padding: 4px 0; border-bottom: 1px solid #e4e4e4;\"><b>Italy</b> <span style=\"float: right; color: #2d9bea; font-weight: bold;\">10.20%</span></li>\n                                                    <li style=\"padding: 4px 0; border-bottom: 1px solid #e4e4e4;\"><b>Asia</b> <span style=\"float: right; color: #2d9bea; font-weight: bold;\">7.40%</span></li>\n                                                    <li style=\"padding: 4px 0; border-bottom: 1px solid #e4e4e4;\"><b>USA</b> <span style=\"float: right; color: #2d9bea; font-weight: bold;\">4.00%</span></li>\n                                                    <li style=\"padding: 4px 0; border-bottom: 1px solid #e4e4e4;\"><b>Australia</b> <span style=\"float: right; color: #2d9bea; font-weight: bold;\">2.00%</span></li>\n                                                    <li style=\"padding: 4px 0;\"><b>UK</b> <span style=\"float: right; color: #2d9bea; font-weight: bold;\">1.40%</span></li>\n                                                </ul>\n                                            </div>\n\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 110px 0px 110px 0px;\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #ffffff ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \" style=\"padding-right: 50px;\">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 25px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 45px;letter-spacing: 0px;text-transform: none;\">Building Description<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 15px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 15px;\">\n                                                        <p>Our factory campus in Konabari, Gazipur spreads over 10 buildings, additional sheds and ETP units, covering a total area of <b>15,23,000 sqft</b>.</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-icon-list-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-icon-list-with-background-circle\" style=\"padding-bottom: 0px;\">\n                                                    <ul>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>Building 1:</b> 78,282 sqft &nbsp;|&nbsp; <b>Building 2:</b> 1,33,666 sqft</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>Building 3:</b> 55,684 sqft &nbsp;|&nbsp; <b>Building 4:</b> 71,901 sqft</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>Building 5:</b> 5,89,000 sqft &nbsp;|&nbsp; <b>Building 6:</b> 36,898 sqft</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>Building 7:</b> 67,996 sqft &nbsp;|&nbsp; <b>Building 8:</b> 4,200 sqft</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>Building 9:</b> 49,140 sqft &nbsp;|&nbsp; <b>Building 10:</b> 19,122 sqft</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>Mamun Knitwear:</b> 1,66,137 sqft &nbsp;|&nbsp; <b>Shed 1:</b> 45,000 sqft &nbsp;|&nbsp; <b>Shed 2:</b> 73,200 sqft</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-flag gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-gear gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\"><b>ETP 01:</b> 6,000 sqft &nbsp;|&nbsp; <b>ETP 02:</b> 29,759 sqft</span></li>\n                                                    </ul>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-top: 20px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 15px;\">\n                                                        <p>Buildings house yarn storage, knitting, dyeing, printing, embroidery, garments units, all over print, warehouse, accessories storage and medical facilities, with dedicated free space for future expansion.</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-image-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-left-align\">\n                                                    <div class=\"gdlr-core-image-item-wrap gdlr-core-media-image  gdlr-core-image-item-style-rectangle\" style=\"border-width: 0px;\"><img src=\"/upload/building-map.jpg\" alt=\"M.M. Knitwear Ltd. building layout map\" width=\"1241\" height=\"1754\" loading=\"lazy\"></div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 110px 0px 0px 0px;\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f0f0f0 ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 60px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 45px;letter-spacing: 0px;text-transform: none;\">Meet The Team<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-personnel-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-personnel-item-style-grid-with-background gdlr-core-personnel-style-grid gdlr-core-with-background\">\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-30 gdlr-core-column-first gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\" style=\"background-color: white\">\n                                                    <a href=\"#\"><img src=\"/upload/team-mofizul.jpg\" width=\"550\" height=\"500\"  alt=\"Mofizul Islam, Managing Director\" loading=\"lazy\"></a>\n                                                </div>\n                                                <div class=\"gdlr-core-personnel-list-content-wrap\">\n                                                    <h3 class=\"gdlr-core-personnel-list-title\"><a href=\"#\">Mofizul Islam</a></h3>\n                                                    <div class=\"gdlr-core-personnel-list-position gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-style: normal;\">Managing Director</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-30 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\" style=\"background-color: white\">\n                                                    <a href=\"#\"><img src=\"/upload/team-mamunur.jpg\" width=\"550\" height=\"500\"  alt=\"Mamunur Rashid, Director\" loading=\"lazy\"></a>\n                                                </div>\n                                                <div class=\"gdlr-core-personnel-list-content-wrap\">\n                                                    <h3 class=\"gdlr-core-personnel-list-title\"><a href=\"#\">Mamunur Rashid</a></h3>\n                                                    <div class=\"gdlr-core-personnel-list-position gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-style: normal;\">Director</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n\t\t\t\t\t\t\t\t<div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-personnel-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-personnel-item-style-grid-with-background gdlr-core-personnel-style-grid gdlr-core-with-background\">\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-column-first gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <a href=\"#\"><img src=\"/upload/team-ed.jpg\" width=\"550\" height=\"500\"  alt=\"A.K.M. Shaheed Ahmed, Executive Director\" loading=\"lazy\"></a>\n                                                </div>\n                                                <div class=\"gdlr-core-personnel-list-content-wrap\">\n                                                    <h3 class=\"gdlr-core-personnel-list-title\"><a href=\"#\">A.K.M.Shaheed Ahmed</a></h3>\n                                                    <div class=\"gdlr-core-personnel-list-position gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-style: normal;\">Executive Director</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <a href=\"#\"><img src=\"/upload/team-pd.jpg\" width=\"550\" height=\"500\"  alt=\"Nurul Islam, Director (Production)\" loading=\"lazy\"></a>\n                                                </div>\n                                                <div class=\"gdlr-core-personnel-list-content-wrap\">\n                                                    <h3 class=\"gdlr-core-personnel-list-title\"><a href=\"#\">Nurul Islam</a></h3>\n                                                    <div class=\"gdlr-core-personnel-list-position gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-style: normal;\">Director (Production)</div>\n                                                </div>\n                                            </div>\n                                        </div>\n\t\t\t\t\t\t\t\t\t\t\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <a href=\"#\"><img src=\"/upload/team-gm-accounts.jpg\" width=\"550\" height=\"500\"  alt=\"Abdul Haque, Sr. General Manager (Accounts and Finance)\" loading=\"lazy\"></a>\n                                                </div>\n                                                <div class=\"gdlr-core-personnel-list-content-wrap\">\n                                                    <h3 class=\"gdlr-core-personnel-list-title\"><a href=\"#\">Abdul Haque</a></h3>\n                                                    <div class=\"gdlr-core-personnel-list-position gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-style: normal;\">Sr. General Manager (Accounts & Finance)</div>\n                                                </div>\n                                            </div>\n                                        </div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <a href=\"#\"><img src=\"/upload/team-srgm-mkt.jpg\" width=\"550\" height=\"500\"  alt=\"Bashir Ahmed, Sr. General Manager (Marketing and Merchandising)\" loading=\"lazy\"></a>\n                                                </div>\n                                                <div class=\"gdlr-core-personnel-list-content-wrap\">\n                                                    <h3 class=\"gdlr-core-personnel-list-title\"><a href=\"#\">Bashir Ahmed</a></h3>\n                                                    <div class=\"gdlr-core-personnel-list-position gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-style: normal;\">Sr. General Manager (Marketing & Merchandising)</div>\n                                                </div>\n                                            </div>\n                                        </div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-column-first gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <a href=\"#\"><img src=\"/upload/team-gm-operation.jpg\" width=\"550\" height=\"500\"  alt=\"Monirul Islam, General Manager (Operation)\" loading=\"lazy\"></a>\n                                                </div>\n                                                <div class=\"gdlr-core-personnel-list-content-wrap\">\n                                                    <h3 class=\"gdlr-core-personnel-list-title\"><a href=\"#\">Monirul Islam</a></h3>\n                                                    <div class=\"gdlr-core-personnel-list-position gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-style: normal;\">General Manager (Operation)</div>\n                                                </div>\n                                            </div>\n                                        </div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <a href=\"#\"><img src=\"/upload/team-gm-knitting.jpg\" width=\"550\" height=\"500\"  alt=\"Mamun Or Rashid, General Manager (Knitting)\" loading=\"lazy\"></a>\n                                                </div>\n                                                <div class=\"gdlr-core-personnel-list-content-wrap\">\n                                                    <h3 class=\"gdlr-core-personnel-list-title\"><a href=\"#\">Mamun Or Rashid</a></h3>\n                                                    <div class=\"gdlr-core-personnel-list-position gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-style: normal;\">General Manager (Knitting)</div>\n                                                </div>\n                                            </div>\n                                        </div>\n\t\t\t\t\t\t\t\t\t\t\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <a href=\"#\"><img src=\"/upload/team-agm.jpg\" width=\"550\" height=\"500\"  alt=\"Mahbubul Alam, AGM (Marketing and Merchandising)\" loading=\"lazy\"></a>\n                                                </div>\n                                                <div class=\"gdlr-core-personnel-list-content-wrap\">\n                                                    <h3 class=\"gdlr-core-personnel-list-title\"><a href=\"#\">Mahbubul Alam</a></h3>\n                                                    <div class=\"gdlr-core-personnel-list-position gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-style: normal;\">AGM (Marketing & Merchandising)</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\t\t\t\t\t<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 55px 0px 0px 0px; background-color: #ffffff ;\">\n                        <div class=\"gdlr-core-pbf-background-wrap\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 60px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 45px;letter-spacing: 0px;text-transform: none;\">Our Corporate Video<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-element\" style=\"padding: 0px 0px 55px 0px;\">\n                                 <iframe src=\"https://www.youtube.com/embed/ctGUUf4bGCU\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>\n                                </div>\n                            </div>\n                        </div>\n                    </div>";
+
+const pillars = [
+  {
+    icon: 'upload/about-icon-1.png',
+    title: 'Compliance',
+    text: 'Our factory maintains full compliance with international laws and standards covering human rights, social compliance, technical compliance, C-TPAT, labour law and other rules set by the relevant authorities.',
+  },
+  {
+    icon: 'upload/about-icon-2.png',
+    title: 'Employee & Social Commitment',
+    text: 'Our strength is focused on our employees and the development of their skills, enabling us to offer the best products and services. Through sponsorship we also support local, regional and national sports and charity initiatives.',
+  },
+  {
+    icon: 'upload/about-icon-3.png',
+    title: 'Sustainable Development',
+    text: 'We continuously work to manufacture more sustainably and reduce plastic consumption. All facilities maintain OEKO-TEX and other compliances to reduce energy use, improve waste management and ensure a safe working environment.',
+  },
+];
+
+const facilities = [
+  { label: 'Area of Factory', value: '15,23,000', note: 'Square feet' },
+  { label: 'Employees', value: '10,982', note: 'Male 7,044 (64%) / Female 3,938 (36%)' },
+  { label: 'Garments Capacity', value: '200,000', note: 'Pcs per day across 116 lines / 3,850 machines' },
+  { label: 'Fabric Capacity', value: '45 + 45', note: 'Knitting & dyeing, tons per day' },
+];
+
+const embellishment = [
+  { label: 'All Over Print', value: '15', note: 'Tons per day' },
+  { label: 'Placement Print', value: '200,000', note: 'Pcs per day' },
+  { label: 'Embroidery', value: '50,000', note: 'Pcs per day' },
+];
+
+const turnover = [
+  { year: '2022', value: 90 },
+  { year: '2023', value: 115 },
+  { year: '2024', value: 120 },
+  { year: '2025', value: 125 },
+  { year: '2026', value: 118 },
+];
+
+const markets = [
+  { country: 'Spain', pct: 35.4 },
+  { country: 'Germany', pct: 19.0 },
+  { country: 'France', pct: 18.3 },
+  { country: 'Italy', pct: 10.2 },
+  { country: 'Asia', pct: 7.4 },
+  { country: 'USA', pct: 4.0 },
+  { country: 'Australia', pct: 2.0 },
+  { country: 'UK', pct: 1.4 },
+];
+
+const buildings = [
+  { name: 'Building 1', size: '78,282 sqft' },
+  { name: 'Building 2', size: '1,33,666 sqft' },
+  { name: 'Building 3', size: '55,684 sqft' },
+  { name: 'Building 4', size: '71,901 sqft' },
+  { name: 'Building 5', size: '5,89,000 sqft' },
+  { name: 'Building 6', size: '36,898 sqft' },
+  { name: 'Building 7', size: '67,996 sqft' },
+  { name: 'Building 8', size: '4,200 sqft' },
+  { name: 'Building 9', size: '49,140 sqft' },
+  { name: 'Building 10', size: '19,122 sqft' },
+];
+
+const extras = [
+  { name: 'Mamun Knitwear', size: '1,66,137 sqft' },
+  { name: 'Shed 1', size: '45,000 sqft' },
+  { name: 'Shed 2', size: '73,200 sqft' },
+  { name: 'ETP 01', size: '6,000 sqft' },
+  { name: 'ETP 02', size: '29,759 sqft' },
+];
+
+const team = [
+  { name: 'Mofizul Islam', role: 'Managing Director', img: 'upload/team-mofizul.jpg' },
+  { name: 'Mamunur Rashid', role: 'Director', img: 'upload/team-mamunur.jpg' },
+  { name: 'A.K.M. Shaheed Ahmed', role: 'Executive Director', img: 'upload/team-ed.jpg' },
+  { name: 'Nurul Islam', role: 'Director (Production)', img: 'upload/team-pd.jpg' },
+  { name: 'Abdul Haque', role: 'Sr. General Manager (Accounts & Finance)', img: 'upload/team-gm-accounts.jpg' },
+  { name: 'Bashir Ahmed', role: 'Sr. General Manager (Marketing & Merchandising)', img: 'upload/team-srgm-mkt.jpg' },
+  { name: 'Monirul Islam', role: 'General Manager (Operation)', img: 'upload/team-gm-operation.jpg' },
+  { name: 'Mamun Or Rashid', role: 'General Manager (Knitting)', img: 'upload/team-gm-knitting.jpg' },
+  { name: 'Mahbubul Alam', role: 'AGM (Marketing & Merchandising)', img: 'upload/team-agm.jpg' },
+];
+
+const aboutPage = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About M.M. Knitwear Ltd.',
+  url: siteUrl + '/about-us/',
+  description,
+  mainEntity: { '@id': `${siteUrl}/#organization` },
+  inLanguage: 'en',
+};
+
+const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  canonical={canonical}
-  ogTitle={"About Us | M.M. Knitwear Ltd. - Knitwear Manufacturer in Bangladesh"}
-  ogDescription={"M.M. Knitwear Ltd.: export-oriented knit composite manufacturer in Gazipur, Bangladesh, producing quality apparel since 2001."}
-  ogImage={"https://www.mmknitwear.com/upload/main-banner.jpg"}
-  twitterTitle={"About Us | M.M. Knitwear Ltd. - Knitwear Manufacturer in Bangladesh"}
-  twitterDescription={"Since 2001, M.M. Knitwear Ltd. has been a leading export-oriented knitwear manufacturer in Bangladesh, specialising in organic cotton and fast fashion knit garments."}
-  jsonLd={jsonLd}
-  headStyle={headStyle}
-  footerScripts={footerScripts}
-  active="about"
->
-  <Fragment set:html={content} />
+<BaseLayout title={title} description={description} keywords={keywords} canonical="/about-us/" jsonLd={jsonLd} active="about">
+  <PageHeader eyebrow="Who We Are" title="About Us" crumb="About Us"
+    intro="M.M. Knitwear Ltd. is a 100% export-oriented knit composite manufacturer established in September 2001 in Gazipur, Bangladesh." />
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="split__body reveal">
+          <SectionTitle eyebrow="Our Story" title="Built on Quality Since 2001" />
+          <p>
+            From our head office in Uttara, Dhaka and our factory at Ambagh Road, Konabari, we
+            design and produce high-quality knitted apparel for leading international brands,
+            independent boutiques and specialist retailers across Europe and beyond.
+          </p>
+          <p>
+            We aim to continue developing with the latest manufacturing technologies to
+            accommodate large orders and satisfy our clients well. Our strength as a private
+            company enables us to create an organic environment that provides opportunity for
+            our people to grow as we do.
+          </p>
+          <p>
+            M.M. Knitwear Ltd. has been recognised by many influential business leaders in
+            Bangladesh and is well on its way to becoming an industrial institution in one of
+            the world's rising economies.
+          </p>
+        </div>
+        <div class="split__media reveal">
+          <img src={u('upload/main-banner.jpg')} alt="M.M. Knitwear factory" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="quickfacts">
+        {quickFacts.map((f) => (
+          <div class="quickfacts__item">
+            <strong>{f.value}</strong>
+            <span>{f.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <SectionTitle eyebrow="Quality Policy" title="Excellence in Everything We Do" />
+      <p class="lead">
+        We strive to achieve customer excellence by exceeding expectations of product quality,
+        performance and delivery. We are committed to implementing quality management systems
+        that conform to international standards. Our drive to build a sustainable business
+        through continuous improvement, quality management, attention to detail and a strict
+        commitment to our buyers&rsquo; requirements continues to gain momentum.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="pillars">
+        <div class="pillars__list">
+          <h3>Welfare Facilities</h3>
+          <ul role="list">
+            {welfare.map((w) => (
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                {w}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="pillars__grid">
+          {pillars.map((p) => (
+            <div class="card pillar reveal">
+              <div class="pillar__icon">
+                <img src={u(p.icon)} alt="" width="56" height="56" loading="lazy" />
+              </div>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <SectionTitle eyebrow="Facilities at a Glance" title="Scale That Meets Demand" center />
+      <div class="stats stats--4">
+        {facilities.map((f) => (
+          <div class="stat reveal">
+            <div class="stat__value" style="font-size:1.9rem;">{f.value}</div>
+            <div class="stat__label">{f.label}</div>
+            <div class="stat__note">{f.note}</div>
+          </div>
+        ))}
+      </div>
+      <div class="mini-stats">
+        {embellishment.map((e) => (
+          <div class="mini-stat reveal">
+            <strong>{e.value}</strong>
+            <span>{e.label}</span>
+            <small>{e.note}</small>
+          </div>
+        ))}
+      </div>
+      <p class="center-note">
+        We produce all types of knit products, especially T-Shirts, Polo Shirts, Henley, Jogger,
+        Leggings, Bermuda, Dresses, Sweatshirts, Vests, Tank Tops, Skirts, Bodysuits, Coveralls,
+        Nightwear and Loungewear.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionTitle eyebrow="Our Business Growth" title="A Story of Consistent Growth" center />
+      <div class="growth">
+        <div class="growth__chart reveal">
+          <h3>Annual Turnover ($M)</h3>
+          <div class="bars">
+            {turnover.map((t) => (
+              <div class="bar" title={`$${t.value}M`}>
+                <span class="bar__val">${t.value}M</span>
+                <span class="bar__fill" style={`height:${(t.value / 125) * 100}%`}></span>
+                <span class="bar__year">{t.year}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="growth__share reveal">
+          <h3>Business Share</h3>
+          {markets.map((m) => (
+            <div class="share">
+              <div class="share__row">
+                <span>{m.country}</span>
+                <strong>{m.pct}%</strong>
+              </div>
+              <div class="share__track">
+                <span style={`width:${(m.pct / 35.4) * 100}%`}></span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <div class="split">
+        <div class="split__body reveal">
+          <SectionTitle eyebrow="Building Description" title="A Campus Built for Scale" />
+          <p>
+            Our factory campus in Konabari, Gazipur spreads over 10 buildings, additional sheds
+            and ETP units, covering a total area of 15,23,000 sqft.
+          </p>
+          <ul class="buildings" role="list">
+            {buildings.map((b) => (
+              <li><span>{b.name}</span><strong>{b.size}</strong></li>
+            ))}
+          </ul>
+          <p class="extra-sheds">
+            {extras.map((e) => `${e.name}: ${e.size}`).join(' \u00B7 ')}
+          </p>
+        </div>
+        <div class="split__media reveal">
+          <img src={u('upload/building-map.jpg')} alt="M.M. Knitwear Ltd. building layout map" loading="lazy" />
+        </div>
+      </div>
+      <p class="center-note">
+        Buildings house yarn storage, knitting, dyeing, printing, embroidery, garments units,
+        all over print, warehouse, accessories storage and medical facilities, with dedicated
+        free space for future expansion.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionTitle eyebrow="Leadership" title="Meet the Team" center />
+      <div class="team-grid">
+        {team.map((t) => (
+          <div class="team-card reveal">
+            <img src={u(t.img)} alt={`${t.name}, ${t.role}`} loading="lazy" width="400" height="400" />
+            <div class="team-card__body">
+              <h3>{t.name}</h3>
+              <span class="team-card__role">{t.role}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <SectionTitle eyebrow="Corporate Video" title="Inside Our Factory" center />
+      <VideoEmbed src="https://www.youtube.com/embed/ctGUUf4bGCU" title="M.M. Knitwear corporate video" />
+    </div>
+  </section>
+
+  <CTASection />
 </BaseLayout>
+
+<style>
+  .quickfacts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .quickfacts__item {
+    text-align: center;
+    padding: 1.75rem 1rem;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+
+  .quickfacts__item strong {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    color: var(--brand-800);
+  }
+
+  .quickfacts__item span {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 860px) {
+    .quickfacts { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .lead {
+    font-size: 1.125rem;
+    color: var(--slate);
+    max-width: 820px;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: 0.9fr 1.4fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .pillars { grid-template-columns: 1fr; }
+  }
+
+  .pillars__list h3 {
+    margin-bottom: 1.25rem;
+  }
+
+  .pillars__list ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .pillars__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.98rem;
+    color: var(--ink);
+  }
+
+  .pillars__list svg {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    color: var(--brand);
+    margin-top: 0.15rem;
+  }
+
+  .pillars__grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .pillar {
+    padding: 1.75rem;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 1.25rem;
+  }
+
+  .pillar__icon {
+    grid-row: 1 / span 2;
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    display: grid;
+    place-items: center;
+    padding: 0.8rem;
+  }
+
+  .pillar__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .pillar h3 { margin-bottom: 0.5rem; }
+  .pillar p { font-size: 0.95rem; }
+
+  @media (max-width: 560px) {
+    .pillar { grid-template-columns: 1fr; }
+    .pillar__icon { grid-row: auto; margin-bottom: 0.5rem; }
+  }
+
+  .stats--4 { grid-template-columns: repeat(4, 1fr); }
+
+  .mini-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .mini-stat {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .mini-stat strong {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 1.9rem;
+    color: var(--brand);
+    line-height: 1;
+  }
+
+  .mini-stat span {
+    display: block;
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 0.4rem;
+  }
+
+  .mini-stat small {
+    color: var(--muted);
+  }
+
+  .center-note {
+    text-align: center;
+    max-width: 820px;
+    margin: 1.75rem auto 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .growth {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .growth { grid-template-columns: 1fr; }
+  }
+
+  .growth__chart,
+  .growth__share {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 1.75rem;
+  }
+
+  .growth h3 { margin-bottom: 1.5rem; }
+
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.85rem;
+    height: 240px;
+    padding-top: 1.5rem;
+  }
+
+  .bar {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+  }
+
+  .bar__val {
+    font-family: var(--font-head);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--brand-800);
+  }
+
+  .bar__fill {
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    background: linear-gradient(180deg, var(--brand), var(--brand-600));
+    transition: height 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bar__year {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .share {
+    margin-bottom: 1.1rem;
+  }
+
+  .share__row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .share__row strong { color: var(--brand-800); }
+
+  .share__track {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    overflow: hidden;
+  }
+
+  .share__track span {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--brand), var(--accent));
+  }
+
+  .buildings {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .buildings li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-bottom: 1px dashed var(--line);
+    padding-block: 0.45rem;
+    font-size: 0.95rem;
+  }
+
+  .buildings span { color: var(--slate); }
+  .buildings strong { color: var(--ink); }
+
+  .extra-sheds {
+    margin-top: 1.25rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+</style>

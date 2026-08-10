@@ -1,32 +1,134 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import CTASection from '../components/CTASection.astro';
+import { ld, breadcrumb, siteUrl } from '../utils/seo';
 
-const title = "Knitting Division | M.M. Knitwear Ltd.";
-const description = "Inside M.M. Knitwear\\u2019s knitting division: 225 sets of machines, 80,000 sq ft and 45 tons of daily fabric capacity in Gazipur.";
-const canonical = "/out-projects/";
-const jsonLd = [
-  "<script type=\"application/ld+json\">\n    {\n      \"@context\": \"https://schema.org\",\n      \"@type\": \"BreadcrumbList\",\n      \"itemListElement\": [\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 1,\n          \"name\": \"Home\",\n          \"item\": \"https://www.mmknitwear.com/index.html\"\n        },\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 2,\n          \"name\": \"Projects\",\n          \"item\": \"https://www.mmknitwear.com/out-projects.html\"\n        }\n      ]\n    }\n    </script>"
+const base = import.meta.env.BASE_URL;
+const u = (p: string) => base + p;
+
+const title = 'Knitting Division – Circular Knit Fabric | M.M. Knitwear Ltd.';
+const description =
+  'M.M. Knitwear Ltd. operates one of the largest knitting divisions in Gazipur — 225 circular knitting machines producing weft-knitted fabrics.';
+const keywords =
+  'circular knitting factory bangladesh, knit fabric manufacturer gazipur, circular knitting machines, weft knit fabric supplier bangladesh';
+
+const stats = [
+  { icon: 'k', value: '225', label: 'Knitting Machines', text: '20GG, 24GG and 28GG cylinders to produce all types of weft-knitted fabric, complemented by 28 flat knit machines, 6 narrow fabric machines and 14 units of fabric testing machinery. Brands include Fukuhara, Fukuhama and Jiunn Long.' },
+  { icon: 's', value: '80,000', label: 'Sq Ft Floor Space', text: 'The knitting unit occupies 80,000 square feet of floor space at our Konabari complex in Gazipur, keeping yarn sourcing, knitting, testing and quality control under one roof.' },
+  { icon: 't', value: '45', label: 'Tons Daily Capacity', text: 'Our daily knitting capacity of 45 tons of fabric feeds our dyeing, garments, printing, AOP and embroidery divisions, enabling a fully integrated knit composite manufacturing service.' },
 ];
-const headStyle = [
-  // none
-];
-const footerScripts = "";
-const content = "<div class=\"gdlr-core-pbf-section\">\n                        <div class=\"gdlr-core-pbf-section-container gdlr-core-container clearfix\">\n                            <div class=\"gdlr-core-pbf-element\">\n                                                                    <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\">\n                                        <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 17px;\">\n                                            <p>M.M. Knitwear Ltd. operates one of the largest knitting divisions in Gazipur, Bangladesh. Our knitting machines produce weft-knitted fabrics for the t-shirts, tops, hoodies, sweaters and joggers we manufacture for leading international apparel brands.</p>\n                                            <p><a href=\"/projects/\">View all production divisions &rarr;</a></p>\n                                        </div>\n                                    </div>\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 20px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \"     style=\"letter-spacing: 0px;text-transform: none;\">225 Knitting Machines<span                                class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                    <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\">\n                                        <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 17px;\">\n                                            <p>Our circular knitting unit has 225 sets of machines with 20GG, 24GG   and 28GG cylinders to produce all types of weft-knitted fabric, complemented by 28 flat knit machines, 6     narrow fabric machines and 14 units of fabric testing machinery. Machine brands include Fukuhara, Fukuhama   and Jiunn Long.</p>\n                                        </div>\n                                    </div>\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 20px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"letter-spacing: 0px;text-transform: none;\">80,000 Sq Ft Floor Space<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                    <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\">\n                                        <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 17px;\">\n                                            <p>The knitting unit occupies 80,000 square feet of floor space at our Konabari complex in Gazipur, keeping yarn sourcing, knitting, testing and quality control under one roof.</p>\n                                        </div>\n                                    </div>\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 20px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \"     style=\"letter-spacing: 0px;text-transform: none;\">45 TON Daily Knitting Capacity<span                     class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                    <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\">\n                                        <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 17px;\">\n                                            <p>Our daily knitting capacity of 45 tons of fabric feeds our            dyeing, garments, printing, AOP and embroidery divisions, enabling a fully integrated knit composite         manufacturing service.</p>\n                                        </div>\n                                    </div>                                </div>\n                            </div>\n                        </div>";
+
+const knittingPage = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Knitting Division',
+  url: siteUrl + '/out-projects/',
+  description: 'Circular knitting division of M.M. Knitwear Ltd. in Gazipur, Bangladesh',
+  inLanguage: 'en',
+};
+
+const jsonLd = [ld(breadcrumb('Knitting Division', '/out-projects/')), ld(knittingPage)];
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  canonical={canonical}
-  ogTitle={"Knitting Division | M.M. Knitwear Ltd."}
-  ogDescription={"Inside M.M. Knitwear\\u2019s knitting division: 225 sets of machines, 80,000 sq ft and 45 tons of daily fabric capacity in Gazipur."}
-  ogImage={"https://www.mmknitwear.com/upload/main-banner.jpg"}
-  twitterTitle={"Knitting Division | M.M. Knitwear Ltd."}
-  twitterDescription={"M.M. Knitwear's knitting division in Gazipur, Bangladesh: 225 sets of knitting machines, 80,000 sq ft of floor space and 45 tons daily fabric capacity for knitwear manufacturing."}
-  jsonLd={jsonLd}
-  headStyle={headStyle}
-  footerScripts={footerScripts}
-  active=undefined
->
-  <Fragment set:html={content} />
+<BaseLayout title={title} description={description} keywords={keywords} canonical="/out-projects/" jsonLd={jsonLd} active="divisions">
+  <PageHeader eyebrow="Production Division" title="Knitting Division" crumb="Out-Projects"
+    intro="M.M. Knitwear Ltd. operates one of the largest knitting divisions in Gazipur, Bangladesh. Our knitting machines produce weft-knitted fabrics for the t-shirts, tops, hoodies, sweaters and joggers we manufacture for leading international apparel brands." />
+
+  <section class="section">
+    <div class="container">
+      <div class="knit-stats">
+        {stats.map((s) => (
+          <div class="card knit-card reveal">
+            <div class="knit-card__top">
+              <span class="dot">{s.icon.toUpperCase()}</span>
+              <div>
+                <strong class="knit-card__value">{s.value}</strong>
+                <span class="knit-card__label">{s.label}</span>
+              </div>
+            </div>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <div class="knit-cta">
+        <div>
+          <SectionTitle eyebrow="Explore More" title="View All Production Divisions" />
+        </div>
+        <a class="btn btn--primary" href={`${base}projects/`}>
+          View All Production Divisions &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
 </BaseLayout>
+
+<style>
+  .knit-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 860px) {
+    .knit-stats { grid-template-columns: 1fr; }
+  }
+
+  .knit-card {
+    padding: 2rem 1.75rem;
+  }
+
+  .knit-card__top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .dot {
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--brand), var(--brand-600));
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-family: var(--font-head);
+    font-weight: 800;
+  }
+
+  .knit-card__value {
+    display: block;
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.7rem;
+    color: var(--brand-800);
+    line-height: 1.1;
+  }
+
+  .knit-card__label {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--ink);
+  }
+
+  .knit-card p { font-size: 0.95rem; }
+
+  .knit-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+</style>

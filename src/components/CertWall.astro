@@ -1,0 +1,19 @@
+---
+import { certifications } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<div class="cert-wall">
+  {certifications.map((c) => (
+    <div class="cert-wall__item" title={c.replace(/-/g, ' ')}>
+      <img
+        src={`${base}images/Certificates/${c}.png`}
+        alt={`${c.replace(/-/g, ' ')} certification`}
+        loading="lazy"
+        width="140"
+        height="76"
+      />
+    </div>
+  ))}
+</div>

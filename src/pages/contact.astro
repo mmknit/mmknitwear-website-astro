@@ -1,33 +1,197 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import { SITE } from '../data/site';
+import { ld, breadcrumb, siteUrl } from '../utils/seo';
 
-const title = "Contact Us | M.M. Knitwear Ltd.";
-const description = "Contact M.M. Knitwear Ltd. Head office in Dhaka, factory in Gazipur, Bangladesh. Call +8809666768768 or email info@mmknitwear.com.";
-const canonical = "/contact/";
+const title = 'Contact Us | M.M. Knitwear Ltd. – Dhaka & Gazipur, Bangladesh';
+const description =
+  'Contact M.M. Knitwear Ltd. — head office in Uttara, Dhaka and factory in Konabari, Gazipur. Reach us by phone, email or the contact form for pricing and sample lead times.';
+const keywords =
+  'contact mm knitwear, garment manufacturer bangladesh contact, knitwear supplier email, knit composite factory phone, dhaka garment factory address';
+
+const faqs = [
+  {
+    q: 'Where are your offices located?',
+    a: 'Our head office is at House 16, Road 10, Sector 01, Uttara Model Town, Dhaka, and our factory is at Ambagh Road, Nilnagar, Konabari, Gazipur, Bangladesh.',
+  },
+  {
+    q: 'What products do you manufacture?',
+    a: 'We are a 100% export-oriented knitwear manufacturer producing t-shirts, polo shirts, hoodies, sweatshirts, pants and other knit garments for men, women and kids.',
+  },
+  {
+    q: 'Do you export internationally?',
+    a: 'Yes. We export to more than 10 countries and produce for brands such as Zara, Pepe Jeans, OVS, Terranova, Springfield, Ulla Popken, Crew Clothing, Sfera, Auchan and New Yorker.',
+  },
+  {
+    q: 'How can I get a quotation?',
+    a: 'Send your requirement to bashir@mmknitwear.com or info@mmknitwear.com, or use the contact form on this page, and our marketing team will respond with pricing and sample lead times.',
+  },
+  {
+    q: 'What certifications does your factory hold?',
+    a: 'Our factory is certified under ACCORD, OEKO-TEX, AMFORI BSCI, WRAP and SEDEX, and operates to ISO and OHSAS standards for quality and safety.',
+  },
+];
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${siteUrl}/#organization`,
+  name: 'M.M. Knitwear Ltd.',
+  url: siteUrl + '/contact/',
+  email: 'mailto:info@mmknitwear.com',
+  telephone: '+8809666768768',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'House 16, Road 10, Sector 01, Uttara Model Town',
+    addressLocality: 'Dhaka',
+    postalCode: '1230',
+    addressCountry: 'BD',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+8809666768768',
+    contactType: 'customer service',
+    email: 'info@mmknitwear.com',
+    availableLanguage: ['en', 'bn'],
+  },
+};
+
+const faqPage = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
 const jsonLd = [
-  "<script type=\"application/ld+json\">\n    {\n      \"@context\": \"https://schema.org\",\n      \"@type\": \"BreadcrumbList\",\n      \"itemListElement\": [\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 1,\n          \"name\": \"Home\",\n          \"item\": \"https://www.mmknitwear.com/index.html\"\n        },\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 2,\n          \"name\": \"Contact Us\",\n          \"item\": \"https://www.mmknitwear.com/contact.html\"\n        }\n      ]\n    }\n    </script>",
-  "<script type=\"application/ld+json\">\n    {\n      \"@context\": \"https://schema.org\",\n      \"@type\": \"FAQPage\",\n      \"mainEntity\": [\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Where is M.M. Knitwear Ltd. located?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Our head office is at House 16, Road 10, Sector 01, Uttara Model Town, Dhaka, and our factory is at Ambagh Road, Nilnagar, Konabari, Gazipur, Bangladesh.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"What products does M.M. Knitwear manufacture?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"We are a 100% export-oriented knitwear manufacturer producing t-shirts, polo shirts, hoodies, sweatshirts, pants and other knit garments for men, women and kids.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Do you work with international apparel brands?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Yes. We export to more than 10 countries and produce for brands such as Zara, Pepe Jeans, OVS, Terranova, Springfield, Ulla Popken, Crew Clothing, Sfera, Auchan and New Yorker.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"How do I request a quotation or product samples?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Send your requirement to bashir@mmknitwear.com or info@mmknitwear.com, or use the contact form on this page, and our marketing team will respond with pricing and sample lead times.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"What certifications does your factory hold?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Our factory is certified under ACCORD, OEKO-TEX, AMFORI BSCI, WRAP and SEDEX, and operates to ISO and OHSAS standards for quality and safety.\"\n          }\n        }\n      ]\n    }\n    </script>"
+  ld(breadcrumb('Contact', '/contact/')),
+  ld(organization),
+  ld(faqPage),
 ];
-const headStyle = [
-  // none
-];
-const footerScripts = "<script type='text/javascript' src='/js/frontend.js' defer></script>";
-const content = "<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 250px 0px 160px 0px;\">\n                        <div class=\"gdlr-core-pbf-background-wrap\">\n                            <div class=\"gdlr-core-pbf-background gdlr-core-parallax gdlr-core-js\" style=\"background-image: url(/upload/service-bg-mmk-3.jpg);background-size: cover;background-position: center;\" data-parallax-speed=\"0.3\"></div>\n                        </div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \" data-gdlr-animation=\"fadeInUp\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-bottom gdlr-core-item-pdlr\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h1 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 75px;letter-spacing: 0px;text-transform: none;\">Contact Us<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h1>\n                                        </div><span class=\"gdlr-core-title-item-caption gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-size: 25px;margin-top: 25px;\">Get Intouch</span></div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"gdlr-core-pbf-wrapper \">\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \" style=\"padding: 50px 20px 0px 20px;\">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \" data-gdlr-animation=\"fadeInUp\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-icon-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 55px;\"><i class=\" gdlr-core-icon-item-icon fa fa-phone\" style=\"color: #454545;font-size: 40px;min-width: 40px;min-height: 40px;\"></i></div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 25px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 26px;letter-spacing: 0px;text-transform: none;\">Phone<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            \n\t\t\t\t\t\t\t\t\t\t\t<div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 0px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 16px;\">\n                                                        <p>Head Office: <br>+8809666768768</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n\t\t\t\t\t\t\t\t\t\t\t\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 16px;\">\n\n                                                        <p>Factory: <br>+8809666791791</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n\t\t\t\t\t\t\t\t\t\t\t\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \" style=\"padding: 50px 20px 0px 20px;\">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \" data-gdlr-animation=\"fadeInDown\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-icon-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 55px;\"><i class=\" gdlr-core-icon-item-icon fa fa-envelope-o\" style=\"color: #454545;font-size: 40px;min-width: 40px;min-height: 40px;\"></i></div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 25px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 26px;letter-spacing: 0px;text-transform: none;\">Email<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 0px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 16px;\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>Sr. GM (MKT, MCH & B.Dev) : bashir@mmknitwear.com</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 16px;\">\n                                                        <p>Factory: <br><a href=\"mailto:info@mmknitwear.com\">info@mmknitwear.com</a></p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \" style=\"padding: 50px 20px 0px 20px;\">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \" data-gdlr-animation=\"fadeInUp\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-icon-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 55px;\"><i class=\" gdlr-core-icon-item-icon fa fa-location-arrow\" style=\"color: #454545;font-size: 40px;min-width: 40px;min-height: 40px;\"></i></div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 25px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 26px;letter-spacing: 0px;text-transform: none;\">Head Office<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 0px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 16px;\">\n                                                        <p>House# 16 (3rd Floor), Road# 10, Sector# 01, Uttara, Dhaka - 1230, Bangladesh</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 16px;\">\n                                                        <p><a href=\"https://www.google.com/maps/search/?api=1&query=House+16%2C+Road+10%2C+Sector+01%2C+Uttara+Model+Town%2C+Dhaka%2C+Bangladesh\" target=\"_blank\" rel=\"noopener nofollow\">View Head Office on Google Map</a></p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n\t\t\t\t\t\t\t\t<div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \" style=\"padding: 50px 20px 0px 20px;\">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \" data-gdlr-animation=\"fadeInUp\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-icon-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 55px;\"><i class=\" gdlr-core-icon-item-icon fa fa-location-arrow\" style=\"color: #454545;font-size: 40px;min-width: 40px;min-height: 40px;\"></i></div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 25px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 26px;letter-spacing: 0px;text-transform: none;\">Factory<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 0px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 16px;\">\n                                                        <p>Ambagh Road, Nilnagar, Konabari<br>Gazipur - 1700, Bangladesh</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 16px;\">\n                                                        <p><a href=\"https://www.google.com/maps/search/?api=1&query=Ambagh+Road%2C+Konabari%2C+Gazipur%2C+Bangladesh\" target=\"_blank\" rel=\"noopener nofollow\">View Factory on Google Map</a></p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n\t\t\t\t\t\t\t</div>\n                        </div>\n                    </div>\n\t\t\t\t\t<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 95px 0px 90px 0px;\" data-skin=\"Grey\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f3f3f3 ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \" style=\"max-width: 760px;\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-bottom gdlr-core-item-pdlr\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 39px;letter-spacing: 0px;text-transform: none;\">Leave us your message <span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2>\n                                                    </div><span class=\"gdlr-core-title-item-caption gdlr-core-info-font gdlr-core-skin-caption\" style=\"font-size: 19px;font-style: normal;\">and we will get back to you.</span></div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-divider-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-divider-item-normal\" style=\"padding-bottom: 50px;\">\n                                                    <div class=\"gdlr-core-divider-container gdlr-core-center-align\" style=\"max-width: 40px;\">\n                                                        <div class=\"gdlr-core-divider-line gdlr-core-skin-divider\" style=\"border-color: #2b2b2b;border-bottom-width: 2px;\"></div>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-contact-form-7-item gdlr-core-item-pdlr gdlr-core-item-pdb \">\n                                                    <div role=\"form\" class=\"wpcf7 \" id=\"wpcf7-f1319-p1964-o1\" lang=\"en-US\" dir=\"ltr\">\n                                                        <div class=\"screen-reader-response\"></div>\n\n                                                        <form id=\"contact-form\" action=\"mailto:info@mmknitwear.com\" method=\"post\" enctype=\"text/plain\">\n    <div class=\"gdlr-core-input-wrap gdlr-core-large gdlr-core-full-width gdlr-core-with-column gdlr-core-no-border\">\n        <div class=\"gdlr-core-column-60\">\n            <input type=\"text\" name=\"Full Name\" id=\"your-name\" required placeholder=\"Full Name*\" aria-required=\"true\" class=\"wpcf7-form-control\">\n        </div>\n        <div class=\"gdlr-core-column-60\">\n            <input type=\"email\" name=\"Email\" id=\"your-email\" required placeholder=\"Email*\" aria-required=\"true\" class=\"wpcf7-form-control\">\n        </div>\n        <div class=\"clear\"></div>\n        <div class=\"gdlr-core-column-60\">\n            <textarea name=\"Message\" id=\"your-message\" cols=\"40\" rows=\"8\" required placeholder=\"Message*\" aria-required=\"true\" class=\"wpcf7-form-control\"></textarea>\n        </div>\n        <div class=\"gdlr-core-column-60\">\n            <button type=\"submit\" class=\"submit-button\" id=\"contact-submit\"><span><em>Send Message</em></span></button>\n            <p style=\"font-size: 14px;margin-top: 10px;color:#555;\">Submitting opens your email app with your message ready to send to info@mmknitwear.com. Click Send in your email client to complete.</p>\n            <p id=\"form-feedback\" style=\"display:none;font-weight:600;\"></p>\n        </div>\n    </div>\n</form>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\n\t\t\t\t\t<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 90px 0px 90px 0px;\" data-skin=\"Grey\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f3f3f3 ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \" style=\"max-width: 860px;\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-bottom gdlr-core-item-pdlr\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 39px;letter-spacing: 0px;text-transform: none;\">Frequently Asked Questions<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <style>\n                                                .faq-item + .faq-item { border-top: 1px solid #e4e4e4; }\n                                                .faq-item summary { cursor: pointer; font-size: 17px; font-weight: 600; color: #393939; padding: 16px 0; list-style: none; display: flex; align-items: center; }\n                                                .faq-item summary::-webkit-details-marker { display: none; }\n                                                .faq-item summary::before { content: '\\25B8'; display: inline-block; margin-right: 10px; font-size: 13px; color: #2d9bea; transition: transform 0.2s ease; flex-shrink: 0; }\n                                                .faq-item[open] summary::before { transform: rotate(90deg); }\n                                                .faq-item summary:hover { color: #1e5fa8; }\n                                                .faq-item p { font-size: 15px; color: #666666; margin: 0 0 16px 23px; line-height: 1.7; }\n                                            </style>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <details class=\"faq-item\">\n                                                    <summary>Where is M.M. Knitwear Ltd. located?</summary>\n                                                    <p>Our head office is at House 16, Road 10, Sector 01, Uttara Model Town, Dhaka, and our factory is at Ambagh Road, Nilnagar, Konabari, Gazipur, Bangladesh.</p>\n                                                </details>\n                                                <details class=\"faq-item\">\n                                                    <summary>What products does M.M. Knitwear manufacture?</summary>\n                                                    <p>We are a 100% export-oriented knitwear manufacturer producing t-shirts, polo shirts, hoodies, sweatshirts, pants and other knit garments for men, women and kids.</p>\n                                                </details>\n                                                <details class=\"faq-item\">\n                                                    <summary>Do you work with international apparel brands?</summary>\n                                                    <p>Yes. We export to more than 10 countries and produce for brands such as Zara, Pepe Jeans, OVS, Terranova, Springfield, Ulla Popken, Crew Clothing, Sfera, Auchan and New Yorker.</p>\n                                                </details>\n                                                <details class=\"faq-item\">\n                                                    <summary>How do I request a quotation or product samples?</summary>\n                                                    <p>Send your requirement to bashir@mmknitwear.com or info@mmknitwear.com, or use the contact form on this page, and our marketing team will respond with pricing and sample lead times.</p>\n                                                </details>\n                                                <details class=\"faq-item\">\n                                                    <summary>What certifications does your factory hold?</summary>\n                                                    <p>Our factory is certified under ACCORD, OEKO-TEX, AMFORI BSCI, WRAP and SEDEX, and operates to ISO and OHSAS standards for quality and safety.</p>\n                                                </details>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\n<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 0px 0px 0px 0px;\">\n    <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n        <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-pbf-wrapper-full-no-space\">\n            <div class=\"gdlr-core-pbf-element\">\n                <div class=\"gdlr-core-wp-google-map-plugin-item gdlr-core-item-pdlr gdlr-core-item-pdb \" style=\"padding-bottom: 0px;\">\n                    <iframe title=\"M.M. Knitwear Ltd. factory location - Ambagh Road, Konabari, Gazipur, Bangladesh\" src=\"https://www.google.com/maps?q=M.M.%20Knitwear%20Ltd.%2C%20Ambag%20Rd%2C%20Konabari%2C%20Gazipur%2C%20Bangladesh&output=embed\" width=\"100%\" height=\"500\" style=\"border:0;display:block;\" loading=\"lazy\" allowfullscreen referrerpolicy=\"no-referrer-when-downgrade\"></iframe>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 80px 0px 50px 0px;\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #ffffff ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-social-network-item gdlr-core-item-pdb  gdlr-core-center-align gdlr-core-item-pdlr\"><a href=\"mailto:info@mmknitwear.com\" class=\"gdlr-core-social-network-icon\" title=\"email\" style=\"font-size: 20px;color: #1e1e1e;\"><i class=\"fa fa-envelope\"></i></a><a href=\"https://www.facebook.com/mmknit/\" target=\"_blank\" rel=\"noopener nofollow\" class=\"gdlr-core-social-network-icon\" title=\"facebook\" style=\"font-size: 20px;color: #1e1e1e;margin-left: 40px;\"><i class=\"fa fa-facebook\"></i></a><a href=\"https://www.linkedin.com/company/m-m-knitwear-ltd/\" target=\"_blank\" rel=\"noopener nofollow\" class=\"gdlr-core-social-network-icon\" title=\"linkedin\" style=\"font-size: 20px;color: #1e1e1e;margin-left: 40px;\"><i class=\"fa fa-linkedin\"></i></a></div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>";
+
+const subject = encodeURIComponent('Inquiry from M.M. Knitwear website');
+const mailto = `mailto:${SITE.email}?subject=${subject}`;
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  canonical={canonical}
-  ogTitle={"Contact Us | M.M. Knitwear Ltd."}
-  ogDescription={"Contact M.M. Knitwear Ltd. Head office in Dhaka, factory in Gazipur, Bangladesh. Call +8809666768768 or email info@mmknitwear.com."}
-  ogImage={"https://www.mmknitwear.com/upload/main-banner.jpg"}
-  twitterTitle={"Contact Us | M.M. Knitwear Ltd."}
-  twitterDescription={"Contact M.M. Knitwear Ltd. Head office: House 16, Road 10, Sector 01, Uttara Model Town, Dhaka. Factory: Ambagh Road, Nilnagar, Konabari, Gazipur."}
-  jsonLd={jsonLd}
-  headStyle={headStyle}
-  footerScripts={footerScripts}
-  active="contact"
->
-  <Fragment set:html={content} />
+<BaseLayout title={title} description={description} keywords={keywords} canonical="/contact/" jsonLd={jsonLd} active="contact">
+  <PageHeader eyebrow="Get in Touch" title="Contact Us" crumb="Contact"
+    intro="Whether you have a question about our capabilities, certifications or pricing — our team is ready to help." />
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="card info-card reveal">
+          <div class="info-card__icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.4-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2Z" />
+            </svg>
+          </div>
+          <h3>Phone</h3>
+          <p>Head Office</p>
+          <a href={`tel:${SITE.phoneHeadRaw}`}>{SITE.phoneHead}</a>
+          <p style="margin-top:.9rem;">Factory</p>
+          <a href={`tel:${SITE.phoneFactoryRaw}`}>{SITE.phoneFactory}</a>
+        </div>
+
+        <div class="card info-card reveal">
+          <div class="info-card__icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="m3 7 9 6 9-6" />
+            </svg>
+          </div>
+          <h3>Email</h3>
+          <p>Marketing &amp; Business Development</p>
+          <a href={`mailto:${SITE.mktEmail}`}>{SITE.mktEmail}</a>
+          <p style="margin-top:.9rem;">General Inquiries</p>
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </div>
+
+        <div class="card info-card reveal">
+          <div class="info-card__icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <h3>Head Office</h3>
+          <p>{SITE.headOffice}</p>
+          <a href={SITE.headOfficeMap} target="_blank" rel="noreferrer">View Head Office on Google Map &rarr;</a>
+          <p style="margin-top:.9rem;"><strong>Factory</strong></p>
+          <p>{SITE.factory}</p>
+          <a href={SITE.factoryMap} target="_blank" rel="noreferrer">View Factory on Google Map &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <SectionTitle eyebrow="Send a Message" title="Leave Us Your Message" center />
+      <div class="form-card" style="max-width:820px;margin-inline:auto;">
+        <form action={mailto} method="get">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Your Name</label>
+              <input id="name" name="name" type="text" required autocomplete="name" placeholder="Full name" />
+            </div>
+            <div class="field">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" autocomplete="organization" placeholder="Company name (optional)" />
+            </div>
+            <div class="field">
+              <label for="email">Email Address</label>
+              <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+880 ..." />
+            </div>
+            <div class="field field--full">
+              <label for="message">Your Message</label>
+              <textarea id="message" name="body" required placeholder="Tell us about your product requirements, quantities and target markets..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn--primary" style="margin-top:1.25rem;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m22 2-7 20-4-9-9-4Z" />
+              <path d="M22 2 11 13" />
+            </svg>
+            Send Message
+          </button>
+          <p class="form-note">
+            Submitting opens your email app with your message ready to send to {SITE.email}. Click
+            Send in your email client to complete.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionTitle eyebrow="FAQ" title="Frequently Asked Questions" center />
+      <div class="faq-list" style="margin-inline:auto;">
+        {faqs.map((f) => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <div class="faq-item__body">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <SectionTitle eyebrow="Our Factory" title="Find Us on the Map" center />
+      <MapEmbed src={SITE.factoryEmbed} title="M.M. Knitwear factory location, Konabari, Gazipur" />
+    </div>
+  </section>
 </BaseLayout>

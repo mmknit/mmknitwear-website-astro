@@ -1,121 +1,111 @@
 ---
-import MobileHeader from '../components/MobileHeader.astro';
-import DesktopHeader from '../components/DesktopHeader.astro';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
   description: string;
   canonical: string;
-  ogTitle?: string;
-  ogDescription?: string;
   ogImage?: string;
-  twitterTitle?: string;
-  twitterDescription?: string;
+  keywords?: string;
   jsonLd?: string[];
-  headStyle?: string[];
-  headExtra?: string;
-  footerScripts?: string;
-  active?: 'home' | 'about' | 'compliance' | 'projects' | 'portfolio' | 'contact';
+  preloadImage?: string;
+  active?: 'home' | 'about' | 'compliance' | 'projects' | 'portfolio' | 'news' | 'divisions' | 'contact';
 }
 
 const {
   title,
   description,
   canonical,
-  ogTitle,
-  ogDescription,
   ogImage = 'https://www.mmknitwear.com/upload/main-banner.jpg',
-  twitterTitle,
-  twitterDescription,
+  keywords,
   jsonLd = [],
-  headStyle = [],
-  headExtra = '',
-  footerScripts = '',
+  preloadImage,
   active,
 } = Astro.props;
 
 const SITE = 'https://www.mmknitwear.com';
-const canonicalUrl = SITE + canonical;
-const finalOgTitle = ogTitle ?? title;
-const finalOgDesc = ogDescription ?? description;
-const finalTwTitle = twitterTitle ?? finalOgTitle;
-const finalTwDesc = twitterDescription ?? finalOgDesc;
-const BODY_CLASS =
-  'home page-template-default page page-id-2039 gdlr-core-body woocommerce-no-js kleanity-body kleanity-body-front kleanity-full  kleanity-with-sticky-navigation gdlr-core-link-to-lightbox';
+const url = SITE + canonical;
+const brand = 'M.M. Knitwear Ltd.';
 ---
 
 <!DOCTYPE html>
-<html lang="en-US" class="no-js">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href={canonicalUrl}>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel='apple-touch-icon' href='/apple-touch-icon.png'>
-    <meta name="theme-color" content="#1e5fa8">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="M.M. Knitwear Ltd.">
-    <meta property="og:title" content={finalOgTitle}>
-    <meta property="og:description" content={finalOgDesc}>
-    <meta property="og:url" content={canonicalUrl}>
-    <meta property="og:image" content={ogImage}>
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content={finalTwTitle}>
-    <meta name="twitter:description" content={finalTwDesc}>
-    <meta name="twitter:image" content={ogImage}>
-    {jsonLd.length > 0 && <Fragment set:html={jsonLd.join('\n')} />}
-    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    {keywords && <meta name="keywords" content={keywords} />}
+    <meta name="author" content="M.M. Knitwear Ltd." />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="geo.region" content="BD" />
+    <meta name="geo.placename" content="Dhaka, Bangladesh" />
+    <meta name="geo.position" content="23.8759;90.3993" />
+    <meta name="ICBM" content="23.8759, 90.3993" />
+    <link rel="canonical" href={url} />
+    <link rel="icon" href={import.meta.env.BASE_URL + 'favicon.ico'} type="image/x-icon" />
+    <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + 'apple-touch-icon.png'} />
+    <meta name="theme-color" content="#0b2c5c" />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
 
-    <link rel='stylesheet' href='/css/google-fonts.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='/css/settings.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='/css/style-core.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='/css/kleanity-style-custom.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='/css/combine.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='/css/page-builder.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='/css/font-awesome.css' type='text/css' media='all' />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={brand} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
-    {headStyle.map((css) => <style set:html={css} />)}
-    {headExtra && <Fragment set:html={headExtra} />}
+    {jsonLd.map((block) => <Fragment set:html={block} />)}
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-70FWYE26S8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-  gtag('config', 'G-70FWYE26S8');
-</script>
-</head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-70FWYE26S8"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-70FWYE26S8');
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header active={active} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
 
-<body class={BODY_CLASS}>
-    <MobileHeader active={active} />
-    <div class="kleanity-body-outer-wrapper ">
-        <div class="kleanity-body-wrapper clearfix  kleanity-with-transparent-header kleanity-with-frame">
-            <DesktopHeader active={active} />
-            <div class="kleanity-page-wrapper" id="kleanity-page-wrapper">
-                <div class="gdlr-core-page-builder-body">
-                    <slot />
-                </div>
-            </div>
-            <Footer shareUrl={canonicalUrl} shareTitle={title} />
-        </div>
-    </div>
-
-    <script type='text/javascript' src='/js/jquery/jquery.js'></script>
-    <script type='text/javascript' src='/js/jquery/jquery-migrate.min.js'></script>
-    <script type='text/javascript' src='/js/isotopefilter.js' defer></script>
-    <script type='text/javascript' src='/js/jquery/ui/effect.min.js' defer></script>
-    <script type='text/javascript' src='/js/script.js' defer></script>
-    <script type='text/javascript' src='/js/combine.js' defer></script>
-    <script type='text/javascript' src='/js/page-builder.js' defer></script>
-
-    {footerScripts && <Fragment set:html={footerScripts} />}
-</body>
-
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('.reveal').forEach((el, i) => {
+        el.style.transitionDelay = `${Math.min(i % 4, 3) * 70}ms`;
+        observer.observe(el);
+      });
+    </script>
+  </body>
 </html>

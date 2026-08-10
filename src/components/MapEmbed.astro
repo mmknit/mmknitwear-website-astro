@@ -1,0 +1,18 @@
+---
+interface Props {
+  src: string;
+  title: string;
+}
+
+const { src, title } = Astro.props;
+---
+
+<div class="map-wrap">
+  <iframe
+    src={src}
+    title={title}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen
+  ></iframe>
+</div>

@@ -1,0 +1,24 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  crumb: string;
+}
+
+const { eyebrow, title, intro, crumb } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="page-header">
+  <div class="container page-header__inner">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href={base}>Home</a>
+      <span aria-hidden="true">/</span>
+      <span>{crumb}</span>
+    </nav>
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {intro && <p class="page-header__intro">{intro}</p>}
+  </div>
+</section>

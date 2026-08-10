@@ -1,32 +1,262 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import CTASection from '../components/CTASection.astro';
+import { ld, breadcrumb, siteUrl } from '../utils/seo';
 
-const title = "Compliance & Sustainability | M.M. Knitwear Ltd. - Ethical Knitwear Manufacturer in Bangladesh";
-const description = "Certified ethical knitwear manufacturer in Bangladesh: ACCORD, OEKO-TEX, BSCI, WRAP and SEDEX, with ETP, solar and CSR programmes.";
-const canonical = "/compliance/";
-const jsonLd = [
-  "<script type=\"application/ld+json\">\n    {\n      \"@context\": \"https://schema.org\",\n      \"@type\": \"BreadcrumbList\",\n      \"itemListElement\": [\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 1,\n          \"name\": \"Home\",\n          \"item\": \"https://www.mmknitwear.com/index.html\"\n        },\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 2,\n          \"name\": \"Compliance & Sustainability\",\n          \"item\": \"https://www.mmknitwear.com/compliance.html\"\n        }\n      ]\n    }\n    </script>"
+const base = import.meta.env.BASE_URL;
+const u = (p: string) => base + p;
+
+const title = 'Compliance & Sustainability | M.M. Knitwear Ltd.';
+const description =
+  'M.M. Knitwear Ltd. is committed to ethical manufacturing, sustainability and social responsibility across every stage of our vertically integrated knit composite operation.';
+const keywords =
+  'garment factory compliance bangladesh, sustainable knitwear manufacturing, accords oecko-tex bsci wrap sedex certified factory, ethical garment manufacturing';
+
+const accreditations = [
+  { name: 'ACCORD', text: 'Building & fire safety accord for garment factories' },
+  { name: 'OEKO-TEX', text: 'Certified safe, sustainable textile products' },
+  { name: 'AMFORI BSCI', text: 'Social audit & business social compliance initiative' },
+  { name: 'WRAP', text: 'Worldwide responsible accredited production' },
+  { name: 'SEDEX', text: 'Supplier ethical data exchange membership' },
+  { name: 'ISO & OHSAS', text: 'Quality and occupational health & safety systems' },
 ];
-const headStyle = [
-  "/* Certifications: centered badge logos on white cards */\n        .gdlr-core-personnel-item.gdlr-core-personnel-certs .gdlr-core-personnel-list-image{ display: flex; align-items: center; justify-content: center; height: 180px; padding: 14px; background: #ffffff; border: 1px solid #e3ebf4; border-radius: 8px; }\n        .gdlr-core-personnel-item.gdlr-core-personnel-certs .gdlr-core-personnel-list-image img{ max-width: 100%; height: 88px; width: auto; object-fit: contain; }\n        /* Mobile: 2 certifications per row */\n        @media only screen and (max-width: 767px){\n            .gdlr-core-personnel-item .gdlr-core-personnel-list-column{ width: 50%; }\n            .gdlr-core-personnel-item .gdlr-core-personnel-list-column:nth-child(2n+1){ clear: left; }\n        }"
+
+const initiatives = [
+  { title: 'Solar Energy', text: '1,160 KW of solar panel capacity on site', pct: null },
+  { title: 'Daylight & LED Lighting', text: 'Energy-efficient lighting throughout the factory', pct: 0.5 },
+  { title: 'Exhaust Gas Boiler', text: 'Efficient thermal energy generation', pct: 3.0 },
+  { title: 'Reuse & Recycling', text: 'Programmes to reduce waste and emissions', pct: 0.25 },
+  { title: 'Sustainable Product Design', text: 'Lower-impact materials and smarter design', pct: null },
+  { title: 'Zero Waste Initiatives', text: 'Working toward zero waste across production', pct: null },
 ];
-const footerScripts = "";
-const content = "<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 115px 0px 0px 0px;\">\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                \n\t\t\t\t\t\t\t\t<div class=\"gdlr-core-pbf-column gdlr-core-column-45 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \" style=\"padding: 90px 80px 80px 0px;\" data-sync-height=\"height-1\" data-sync-height-center=\"\">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 35px;\">\n                                                    <div class=\"gdlr-core-title-item-title-wrap \">\n                                                        <h1 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 36px;letter-spacing: 0px;text-transform: none;\">Compliance & Sustainability<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h1></div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 0px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 15px;\">\n                                                        <p>M.M. Knitwear Ltd. is committed to ethical manufacturing, sustainability and social responsibility across every stage of our vertically integrated knit composite operation in Gazipur, Bangladesh. From worker welfare and fire safety to environmental protection and certified quality management, we hold ourselves to the highest international standards.</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n\t\t\t\t\t\t\t\t\t\t\t\n                                        </div>\n                                    </div>\n                                </div>\n                                \n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-right\" style=\"padding: 60px 0px 60px 70px;\" data-sync-height=\"height-1\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f1f0f0 ;\">\n                                            <div class=\"gdlr-core-pbf-background gdlr-core-parallax gdlr-core-js\" style=\"background-image: url(/upload/mm-factory-1281.jpg);background-size: cover;background-position: center;\" data-parallax-speed=\"0.2\"></div>\n                                        </div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\" data-gdlr-animation=\"fadeInLeft\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\"></div>\n                                        \n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\t\t\t\t\t<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 100px 0px 20px 0px;\">\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 40px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 38px;letter-spacing: 0px;text-transform: none;\">Global Accreditations<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 45px;\">\n                                        <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 17px;text-align: center;\">\n                                            <p>We maintain the highest international standards for quality, safety and ethical manufacturing. Our factories are certified and audited under leading global schemes, including ACCORD, OEKO-TEX, AMFORI BSCI, WRAP and SEDEX, with ISO and OHSAS management systems in place.</p>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-personnel-item gdlr-core-personnel-certs gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-personnel-item-style-grid gdlr-core-personnel-style-grid\" style=\"padding-bottom: 0px;\">\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-column-first gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/RSC.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/SEDEX.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/AMFORI-BSCI.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/RECYCLED-100.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/ICS.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/HIGG-INDEX.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/OEKO-TEX-100.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/STEP.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/BCI.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/ORGANIC.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/GLOBAL-RECYCLED-STANDARD.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                        <div class=\"gdlr-core-personnel-list-column  gdlr-core-column-15 gdlr-core-item-pdlr\">\n                                            <div class=\"gdlr-core-personnel-list clearfix\">\n                                                <div class=\"gdlr-core-personnel-list-image gdlr-core-media-image  gdlr-core-opacity-on-hover gdlr-core-zoom-on-hover\">\n                                                    <img src=\"/images/Certificates/ORGANIC-100.png\" alt=\"Certification badge\"  loading=\"lazy\">\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\t\t\t\t\t<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 90px 0px 70px 0px;\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f4f4f4 ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 55px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 38px;letter-spacing: 0px;text-transform: none;\">Sustainability Initiatives<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-left\" style=\"padding: 60px 80px 60px 0px;\" data-sync-height=\"height-2\">\n                                        <div class=\"gdlr-core-pbf-background-wrap\">\n                                            <div class=\"gdlr-core-pbf-background gdlr-core-parallax gdlr-core-js\" style=\"background-image: url(/upload/projects-dyeing.jpg);background-size: cover;background-position: center;\" data-parallax-speed=\"0.2\"></div>\n                                        </div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\"></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-right\" style=\"padding: 60px 0px 60px 70px;\" data-sync-height=\"height-2\" data-sync-height-center=\"\">\n                                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #ffffff ;\"></div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\" data-gdlr-animation=\"fadeInRight\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 25px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 17px;\">\n                                                        <p>We have set a plan to reduce <b>14% of our GHG emissions by the year 2029</b> through the following initiatives:</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-icon-list-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-icon-list-with-background-circle\" style=\"padding-bottom: 0px;\">\n                                                    <ul>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">1,160 KW of solar panel capacity on site</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Daylight and LED lighting (reduce 0.50%)</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Exhaust gas boiler (reduce 3.00%)</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Reuse and recycling programmes (reduce 0.25%)</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Sustainable product design</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-leaf gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Zero waste initiatives</span></li>\n                                                    </ul>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-image-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-center-align\">\n                                                    <div class=\"gdlr-core-image-item-wrap gdlr-core-media-image  gdlr-core-image-item-style-rectangle\" style=\"border-width: 0px;\"><img src=\"/upload/ghg-emission-chart.jpg\" alt=\"GHG emission reduction target chart from 99 in 2024 to 86 by 2029\" width=\"455\" height=\"341\" loading=\"lazy\"></div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\t\t\t\t\t<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 100px 0px 70px 0px;\">\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 55px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 38px;letter-spacing: 0px;text-transform: none;\">Corporate Social Responsibility<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-left\" style=\"padding: 60px 80px 60px 0px;\" data-sync-height=\"height-3\">\n                                        <div class=\"gdlr-core-pbf-background-wrap\">\n                                            <div class=\"gdlr-core-pbf-background gdlr-core-parallax gdlr-core-js\" style=\"background-image: url(/upload/csr-photo.jpg);background-size: cover;background-position: center;\" data-parallax-speed=\"0.2\"></div>\n                                        </div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\"></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-30\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js  gdlr-core-column-extend-right\" style=\"padding: 60px 0px 60px 70px;\" data-sync-height=\"height-3\" data-sync-height-center=\"\">\n                                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f4f4f4 ;\"></div>\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content\" data-gdlr-animation=\"fadeInRight\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 25px;\">\n                                                    <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 17px;\">\n                                                        <p>We are fully committed to social responsibility and worker welfare. Our comprehensive CSR programmes include:</p>\n                                                    </div>\n                                                </div>\n                                            </div>\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-icon-list-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-icon-list-with-background-circle\" style=\"padding-bottom: 0px;\">\n                                                    <ul>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Modern medical facility - 2 units with 12 beds, with full-time free service provided by two professional doctors on site</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Child care facility for 100 children of employees</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Biological ETP - 280 m3 for responsible wastewater treatment</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Canteen service and subsidized lunch for employees</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Elected workers' welfare committee to improve morale, job satisfaction and attendance</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Fire safety systems, controls and regular training</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">24/7 security personnel and systems</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">Regular safety and skill development training</span></li>\n                                                        <li class=\" gdlr-core-skin-divider gdlr-core-with-hover\"><span class=\"gdlr-core-icon-list-icon-wrap gdlr-core-skin-e-background\" style=\"background-color: #51b0f3 ;\"><i class=\"gdlr-core-icon-list-icon-hover fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i><i class=\"gdlr-core-icon-list-icon fa fa-heart gdlr-core-skin-e-content\" style=\"color: #f9f9f9;font-size: 13px;width: 13px;\"></i></span><span class=\"gdlr-core-icon-list-content\">In-house prayer facilities for men and women, plus an annual cultural celebration and picnic</span></li>\n                                                    </ul>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\t\t\t\t\t<div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 100px 0px 90px 0px;\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #ffffff ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr\" style=\"padding-bottom: 55px;\">\n                                        <div class=\"gdlr-core-title-item-title-wrap \">\n                                            <h2 class=\"gdlr-core-title-item-title gdlr-core-skin-title \" style=\"font-size: 38px;letter-spacing: 0px;text-transform: none;\">Environmental Compliance<span class=\"gdlr-core-title-item-title-divider gdlr-core-skin-divider\"></span></h2></div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align\" style=\"padding-bottom: 60px;\">\n                                        <div class=\"gdlr-core-text-box-item-content\" style=\"font-size: 17px;text-align: center;\">\n                                            <p>We follow strict environmental safety regulations to avoid pollution. Our biological effluent treatment plant (ETP) with 280,000 litres per hour capacity ensures responsible wastewater treatment. We are committed to sustainable manufacturing practices that minimise our environmental footprint, from energy-efficient machinery to waste reduction and lower plastic consumption across our facilities.</p>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15 gdlr-core-column-first\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \">\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 17px;\">Solar Capacity</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 51px;\"><span class=\"gdlr-core-counter-item-count gdlr-core-js\" data-duration=\"3000\" data-counter-start=\"0\" data-counter-end=\"1160\">1160</span><span class=\"gdlr-core-counter-item-suffix\"> KW</span></div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\">on-site generation</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \">\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 17px;\">ETP Capacity</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 51px;\"><span class=\"gdlr-core-counter-item-count gdlr-core-js\" data-duration=\"3000\" data-counter-start=\"0\" data-counter-end=\"280000\">280000</span><span class=\"gdlr-core-counter-item-suffix\"> Ltr</span></div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\">biological treatment per hour</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"gdlr-core-pbf-column gdlr-core-column-15\">\n                                    <div class=\"gdlr-core-pbf-column-content-margin gdlr-core-js \">\n                                        <div class=\"gdlr-core-pbf-column-content clearfix gdlr-core-js \">\n                                            <div class=\"gdlr-core-pbf-element\">\n                                                <div class=\"gdlr-core-counter-item gdlr-core-item-pdlr gdlr-core-item-pdb \">\n                                                    <div class=\"gdlr-core-counter-item-top-text gdlr-core-skin-caption\" style=\"font-size: 17px;\">GHG Reduction</div>\n                                                    <div class=\"gdlr-core-counter-item-number gdlr-core-skin-title\" style=\"font-size: 51px;\"><span class=\"gdlr-core-counter-item-count gdlr-core-js\" data-duration=\"4000\" data-counter-start=\"0\" data-counter-end=\"14\">14</span><span class=\"gdlr-core-counter-item-suffix\">%</span></div>\n                                                    <div class=\"gdlr-core-counter-item-bottom-text gdlr-core-skin-content\">target by 2029</div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\n                    <div class=\"gdlr-core-pbf-wrapper \" style=\"padding: 100px 0px 70px 0px;\" data-skin=\"Grey\">\n                        <div class=\"gdlr-core-pbf-background-wrap\" style=\"background-color: #f4f4f4 ;\"></div>\n                        <div class=\"gdlr-core-pbf-wrapper-content gdlr-core-js \" data-gdlr-animation=\"fadeIn\" data-gdlr-animation-duration=\"600ms\" data-gdlr-animation-offset=\"0.8\">\n                            <div class=\"gdlr-core-pbf-wrapper-container clearfix gdlr-core-container\">\n                                <div class=\"gdlr-core-pbf-element\">\n                                    <div class=\"gdlr-core-call-to-action-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-style-left-align-right-button\">\n                                        <div class=\"gdlr-core-call-to-action-item-inner\">\n                                            <div class=\"gdlr-core-call-to-action-item-content-wrap\">\n                                                <h2 class=\"gdlr-core-call-to-action-item-title\" style=\"font-size: 30px;letter-spacing: 0px;\">Want to know more about us?</h2>\n                                                <div class=\"gdlr-core-call-to-action-item-caption gdlr-core-title-font gdlr-core-skin-caption\">Download our full company profile in PDF format.</div>\n                                            </div>\n                                            <div class=\"gdlr-core-call-to-action-item-button\"><a class=\"gdlr-core-button  gdlr-core-button-solid gdlr-core-button-no-border\" href=\"/upload/Company-Profile-Of-MM-Knitwear-Ltd.pdf\" target=\"_blank\" rel=\"noopener\" id=\"gdlr-core-button-id-87746\"><span class=\"gdlr-core-content\">Download</span></a></div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>";
+
+const csr = [
+  'Modern medical facility - 2 units with 12 beds, with full-time free service provided by two professional doctors on site',
+  'Child care facility for 100 children of employees',
+  'Biological ETP - 280 m\u00B3 for responsible wastewater treatment',
+  'Canteen service and subsidized lunch for employees',
+  'Elected workers\u2019 welfare committee to improve morale, job satisfaction and attendance',
+  'Fire safety systems, controls and regular training',
+  '24/7 security personnel and systems',
+  'Regular safety and skill development training',
+  'In-house prayer facilities for men and women, plus an annual cultural celebration and picnic',
+];
+
+const compliancePage = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Compliance & Sustainability',
+  url: siteUrl + '/compliance/',
+  description: 'Ethical manufacturing, sustainability and social responsibility at M.M. Knitwear Ltd.',
+  inLanguage: 'en',
+};
+
+const jsonLd = [ld(breadcrumb('Compliance & Sustainability', '/compliance/')), ld(compliancePage)];
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  canonical={canonical}
-  ogTitle={"Compliance & Sustainability | M.M. Knitwear Ltd."}
-  ogDescription={"Certified ethical knitwear manufacturer in Bangladesh: ACCORD, OEKO-TEX, BSCI, WRAP and SEDEX, with ETP, solar and CSR programmes."}
-  ogImage={"https://www.mmknitwear.com/upload/main-banner.jpg"}
-  twitterTitle={"Compliance & Sustainability | M.M. Knitwear Ltd."}
-  twitterDescription={"Certified ethical knitwear manufacturer in Bangladesh: ACCORD, OEKO-TEX, BSCI, WRAP and SEDEX, with ETP, solar and CSR programmes."}
-  jsonLd={jsonLd}
-  headStyle={headStyle}
-  footerScripts={footerScripts}
-  active="compliance"
->
-  <Fragment set:html={content} />
+<BaseLayout title={title} description={description} keywords={keywords} canonical="/compliance/" jsonLd={jsonLd} active="compliance">
+  <PageHeader eyebrow="Ethics & Responsibility" title="Compliance & Sustainability" crumb="Compliance"
+    intro="M.M. Knitwear Ltd. is committed to ethical manufacturing, sustainability and social responsibility across every stage of our vertically integrated knit composite operation in Gazipur, Bangladesh." />
+
+  <section class="section">
+    <div class="container">
+      <SectionTitle
+        eyebrow="Global Accreditations"
+        title="Certified to the Highest International Standards"
+        text="We maintain the highest international standards for quality, safety and ethical manufacturing. Our factories are certified and audited under leading global schemes, including ACCORD, OEKO-TEX, AMFORI BSCI, WRAP and SEDEX, with ISO and OHSAS management systems in place."
+      />
+      <div class="grid grid--3">
+        {accreditations.map((a) => (
+          <div class="card accred reveal">
+            <div class="accred__badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M12 2 15 8l6.5.8-4.8 4.6 1.2 6.5L12 16.9 6.1 19.9l1.2-6.5L2.5 8.8 9 8z" />
+              </svg>
+            </div>
+            <h3>{a.name}</h3>
+            <p>{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <SectionTitle
+        eyebrow="Sustainability"
+        title="Our Path to a Greener Future"
+        text="We have set a plan to reduce 14% of our GHG emissions by the year 2029 through the following initiatives."
+      />
+      <div class="split">
+        <ul class="initiatives" role="list">
+          {initiatives.map((it) => (
+            <li class="reveal">
+              <div class="initiatives__head">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                <h3>{it.title}</h3>
+                {it.pct !== null && <strong>&minus;{it.pct}%</strong>}
+              </div>
+              <p>{it.text}</p>
+            </li>
+          ))}
+        </ul>
+        <div class="split__media reveal">
+          <img
+            src={u('upload/ghg-emission-chart.jpg')}
+            alt="GHG emission reduction target chart from 99 in 2024 to 86 by 2029"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionTitle
+        eyebrow="Corporate Social Responsibility"
+        title="Our People Come First"
+        text="We are fully committed to social responsibility and worker welfare. Our comprehensive CSR programmes include:"
+      />
+      <div class="csr-grid">
+        {csr.map((c) => (
+          <div class="csr-item reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+            <span>{c}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <SectionTitle
+        eyebrow="Environmental Compliance"
+        title="Protecting the Environment"
+        text="We follow strict environmental safety regulations to avoid pollution. Our biological effluent treatment plant (ETP) with 280,000 litres per hour capacity ensures responsible wastewater treatment."
+      />
+      <p class="env-note">
+        We are committed to sustainable manufacturing practices that minimise our environmental
+        footprint, from energy-efficient machinery to waste reduction and lower plastic
+        consumption across our facilities.
+      </p>
+    </div>
+  </section>
+
+  <CTASection />
 </BaseLayout>
+
+<style>
+  .accred {
+    padding: 2rem 1.75rem;
+  }
+
+  .accred__badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    display: grid;
+    place-items: center;
+    color: var(--brand);
+    margin-bottom: 1.1rem;
+  }
+
+  .accred__badge svg { width: 26px; height: 26px; }
+
+  .accred h3 { margin-bottom: 0.5rem; }
+  .accred p { font-size: 0.95rem; }
+
+  .initiatives {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .initiatives li {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.35rem 1.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .initiatives li:hover {
+    transform: translateX(6px);
+    box-shadow: var(--shadow);
+  }
+
+  .initiatives__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .initiatives__head svg {
+    width: 20px;
+    height: 20px;
+    color: var(--brand);
+  }
+
+  .initiatives__head h3 { margin-bottom: 0; font-size: 1.05rem; }
+
+  .initiatives__head strong {
+    margin-left: auto;
+    color: #2e8b57;
+    font-family: var(--font-head);
+    font-size: 0.9rem;
+  }
+
+  .initiatives li p { font-size: 0.93rem; }
+
+  .csr-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 860px) {
+    .csr-grid { grid-template-columns: 1fr; }
+  }
+
+  .csr-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 1.35rem 1.4rem;
+    font-size: 0.97rem;
+    color: var(--ink);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .csr-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+
+  .csr-item svg {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    color: #2e8b57;
+    margin-top: 0.15rem;
+  }
+
+  .env-note {
+    max-width: 760px;
+    font-size: 1.0625rem;
+  }
+</style>
