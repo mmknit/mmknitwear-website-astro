@@ -1,0 +1,83 @@
+---
+interface Props {
+  shareUrl: string;
+  shareTitle: string;
+}
+
+const { shareUrl, shareTitle } = Astro.props;
+const encodedUrl = encodeURIComponent(shareUrl);
+const encodedTitle = encodeURIComponent(shareTitle);
+const fb = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+const li = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+const tw = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
+---
+
+        <footer>
+            <div class="kleanity-footer-wrapper">
+                <div class="kleanity-footer-container kleanity-container clearfix">
+                    <div class="kleanity-footer-column kleanity-item-pdlr kleanity-column-15">
+                        <div id="text-3" class="widget widget_text kleanity-widget">
+                            <div class="textwidget"><span class="gdlr-core-space-shortcode" style="margin-top: -2px;"></span> <img src="/upload/footer-logo.png" alt="M.M. Knitwear Ltd. logo"  loading="lazy"/> <span class="gdlr-core-space-shortcode" style="margin-top: 25px;"></span> <b>Head Office:</b> House-16, Road-10, Sector-01, Uttara Model Town, Dhaka, Bangladesh <br> <br> <b>Factory:</b> Ambagh Road, Nilnagar, Konabari, Gazipur, Bangladesh.</div>
+                        </div>
+                    </div>
+                    <div class="kleanity-footer-column kleanity-item-pdlr kleanity-column-15">
+                        <div id="recent-posts-3" class="widget widget_recent_entries kleanity-widget">
+                            <h3 class="kleanity-widget-title"><span class="kleanity-widget-head-text">Our Sister Companies</span><span class="kleanity-widget-head-divider"></span></h3><span class="clear"></span>
+                            <ul>
+                                <li> <a href="http://www.mamunknitwear.com" rel="nofollow noopener">Mamun Knitwear Ltd.</a></li>
+                                <li>M.M. Label &amp; Accessories</li>
+                                <li>M.M. Printing &amp; AOP</li>
+                                <li>M.M. Embroidery</li>
+                                <li>M.M. Dyeing Unit 02</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="kleanity-footer-column kleanity-item-pdlr kleanity-column-15">
+                        <div id="gdlr-core-recent-portfolio-widget-3" class="widget widget_gdlr-core-recent-portfolio-widget kleanity-widget">
+                            <h3 class="kleanity-widget-title"><span class="kleanity-widget-head-text">Our Projects</span><span class="kleanity-widget-head-divider"></span></h3><span class="clear"></span>
+                            <div class="gdlr-core-recent-portfolio-widget-wrap clearfix">
+                                <div class="gdlr-core-recent-portfolio-widget gdlr-core-media-image">
+                                    <a href="/projects/"><img src="/upload/knitting-150x150.png" alt="Knitting division" width="150" height="150"  loading="lazy"/><span class="gdlr-core-image-overlay "><i class="gdlr-core-image-overlay-icon icon_link_alt gdlr-core-size-15"  ></i></span></a>
+                                </div>
+                                <div class="gdlr-core-recent-portfolio-widget gdlr-core-media-image">
+                                    <a href="/projects/"><img src="/upload/dyeing-150x150.png" alt="Dyeing division" width="150" height="150"  loading="lazy"/><span class="gdlr-core-image-overlay "><i class="gdlr-core-image-overlay-icon icon_link_alt gdlr-core-size-15"  ></i></span></a>
+                                </div>
+                                <div class="gdlr-core-recent-portfolio-widget gdlr-core-media-image">
+                                    <a href="/projects/"><img src="/upload/garments-150x150.png" alt="Garments division" width="150" height="150"  loading="lazy"/><span class="gdlr-core-image-overlay "><i class="gdlr-core-image-overlay-icon icon_link_alt gdlr-core-size-15"  ></i></span></a>
+                                </div>
+                                <div class="gdlr-core-recent-portfolio-widget gdlr-core-media-image">
+                                    <a href="/projects/"><img src="/upload/aop-150x150.png" alt="AOP division" width="150" height="150"  loading="lazy"/><span class="gdlr-core-image-overlay "><i class="gdlr-core-image-overlay-icon icon_link_alt gdlr-core-size-15"  ></i></span></a>
+                                </div>
+                                <div class="gdlr-core-recent-portfolio-widget gdlr-core-media-image">
+                                    <a href="/projects/"><img src="/upload/printing-150x150.png" alt="Printing division" width="150" height="150"  loading="lazy"/><span class="gdlr-core-image-overlay "><i class="gdlr-core-image-overlay-icon icon_link_alt gdlr-core-size-15"  ></i></span></a>
+                                </div>
+                                <div class="gdlr-core-recent-portfolio-widget gdlr-core-media-image">
+                                    <a href="/projects/"><img src="/upload/embroidery-150x150.png" alt="Embroidery division" width="150" height="150"  loading="lazy"/><span class="gdlr-core-image-overlay "><i class="gdlr-core-image-overlay-icon icon_link_alt gdlr-core-size-15"  ></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kleanity-footer-column kleanity-item-pdlr kleanity-column-15">
+                        <div id="text-7" class="widget widget_text kleanity-widget">
+                            <h3 class="kleanity-widget-title"><span class="kleanity-widget-head-text">Contact Info</span><span class="kleanity-widget-head-divider"></span></h3><span class="clear"></span>
+                            <div class="textwidget">
+                                <p>Sr. GM (MKT): <br>bashir@mmknitwear.com</p>
+                                <p>Head Office: +88-09666-768768
+                                <br /> Factory : +88-09666-791791 <span class="gdlr-core-space-shortcode" style="margin-top: -9px;"></span></p>
+
+                                <p><span class="gdlr-core-space-shortcode" style="margin-top: 30px;"></span>
+                                <br /> <a href="https://www.facebook.com/mmknit" target="_blank" rel="noopener nofollow"><i class="fa fa-facebook" style="font-size: 16px;color: #ffffff;margin-right: 20px;"  ></i></a> <a href="https://www.linkedin.com/company/m-m-knitwear-ltd/" target="_blank" rel="noopener nofollow"><i class="fa fa-linkedin" style="font-size: 16px;color: #ffffff;margin-right: 20px;"  ></i></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kleanity-copyright-wrapper">
+                <div class="kleanity-copyright-container kleanity-container">
+                    <div class="kleanity-copyright-text kleanity-item-pdlr">Copyright 2026 M.M. Knitwear Ltd.</div>
+                    <div class="kleanity-copyright-text kleanity-item-pdlr" style="margin-top: 10px;">Share this page: <a href={fb} target="_blank" rel="noopener nofollow">Facebook</a> &nbsp;|&nbsp; <a href={li} target="_blank" rel="noopener nofollow">LinkedIn</a> &nbsp;|&nbsp; <a href={tw} target="_blank" rel="noopener nofollow">X (Twitter)</a></div>
+                </div>
+            </div>
+        </footer>

@@ -1,0 +1,121 @@
+---
+import MobileHeader from '../components/MobileHeader.astro';
+import DesktopHeader from '../components/DesktopHeader.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  jsonLd?: string[];
+  headStyle?: string[];
+  headExtra?: string;
+  footerScripts?: string;
+  active?: 'home' | 'about' | 'compliance' | 'projects' | 'portfolio' | 'contact';
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogImage = 'https://www.mmknitwear.com/upload/main-banner.jpg',
+  twitterTitle,
+  twitterDescription,
+  jsonLd = [],
+  headStyle = [],
+  headExtra = '',
+  footerScripts = '',
+  active,
+} = Astro.props;
+
+const SITE = 'https://www.mmknitwear.com';
+const canonicalUrl = SITE + canonical;
+const finalOgTitle = ogTitle ?? title;
+const finalOgDesc = ogDescription ?? description;
+const finalTwTitle = twitterTitle ?? finalOgTitle;
+const finalTwDesc = twitterDescription ?? finalOgDesc;
+const BODY_CLASS =
+  'home page-template-default page page-id-2039 gdlr-core-body woocommerce-no-js kleanity-body kleanity-body-front kleanity-full  kleanity-with-sticky-navigation gdlr-core-link-to-lightbox';
+---
+
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href={canonicalUrl}>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel='apple-touch-icon' href='/apple-touch-icon.png'>
+    <meta name="theme-color" content="#1e5fa8">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="M.M. Knitwear Ltd.">
+    <meta property="og:title" content={finalOgTitle}>
+    <meta property="og:description" content={finalOgDesc}>
+    <meta property="og:url" content={canonicalUrl}>
+    <meta property="og:image" content={ogImage}>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={finalTwTitle}>
+    <meta name="twitter:description" content={finalTwDesc}>
+    <meta name="twitter:image" content={ogImage}>
+    {jsonLd.length > 0 && <Fragment set:html={jsonLd.join('\n')} />}
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+
+    <link rel='stylesheet' href='/css/google-fonts.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/css/settings.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/css/style-core.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/css/kleanity-style-custom.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/css/combine.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/css/page-builder.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/css/font-awesome.css' type='text/css' media='all' />
+
+    {headStyle.map((css) => <style set:html={css} />)}
+    {headExtra && <Fragment set:html={headExtra} />}
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-70FWYE26S8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-70FWYE26S8');
+</script>
+</head>
+
+<body class={BODY_CLASS}>
+    <MobileHeader active={active} />
+    <div class="kleanity-body-outer-wrapper ">
+        <div class="kleanity-body-wrapper clearfix  kleanity-with-transparent-header kleanity-with-frame">
+            <DesktopHeader active={active} />
+            <div class="kleanity-page-wrapper" id="kleanity-page-wrapper">
+                <div class="gdlr-core-page-builder-body">
+                    <slot />
+                </div>
+            </div>
+            <Footer shareUrl={canonicalUrl} shareTitle={title} />
+        </div>
+    </div>
+
+    <script type='text/javascript' src='/js/jquery/jquery.js'></script>
+    <script type='text/javascript' src='/js/jquery/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='/js/isotopefilter.js' defer></script>
+    <script type='text/javascript' src='/js/jquery/ui/effect.min.js' defer></script>
+    <script type='text/javascript' src='/js/script.js' defer></script>
+    <script type='text/javascript' src='/js/combine.js' defer></script>
+    <script type='text/javascript' src='/js/page-builder.js' defer></script>
+
+    {footerScripts && <Fragment set:html={footerScripts} />}
+</body>
+
+</html>
