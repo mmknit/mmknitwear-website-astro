@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://www.mmknitwear.com',
-  base: '/',
+  base: '/mmknitwear-website-astro/',
   build: {
     assets: 'assets',
   },
