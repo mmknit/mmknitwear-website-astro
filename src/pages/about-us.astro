@@ -469,11 +469,27 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
 
   .stats--4 { grid-template-columns: repeat(4, 1fr); }
 
+  @media (max-width: 860px) {
+    .stats--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .stats--4 { grid-template-columns: 1fr; }
+  }
+
   .mini-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-top: 1.5rem;
+  }
+
+  @media (max-width: 860px) {
+    .mini-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .mini-stats { grid-template-columns: 1fr; }
   }
 
   .mini-stat {
