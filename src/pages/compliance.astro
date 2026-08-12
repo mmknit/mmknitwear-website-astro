@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import CTASection from '../components/CTASection.astro';
+import CertWall from '../components/CertWall.astro';
 import { ld, breadcrumb, siteUrl } from '../utils/seo';
 
 const base = import.meta.env.BASE_URL;
@@ -67,19 +68,11 @@ const jsonLd = [ld(breadcrumb('Compliance & Sustainability', '/compliance/')), l
         title="Certified to the Highest International Standards"
         text="We maintain the highest international standards for quality, safety and ethical manufacturing. Our factories are certified and audited under leading global schemes, including ACCORD, OEKO-TEX, AMFORI BSCI, WRAP and SEDEX, with ISO and OHSAS management systems in place."
       />
-      <div class="grid grid--3">
-        {accreditations.map((a) => (
-          <div class="card accred reveal">
-            <div class="accred__badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M12 2 15 8l6.5.8-4.8 4.6 1.2 6.5L12 16.9 6.1 19.9l1.2-6.5L2.5 8.8 9 8z" />
-              </svg>
-            </div>
-            <h3>{a.name}</h3>
-            <p>{a.text}</p>
-          </div>
-        ))}
-      </div>
+      <CertWall />
+      <p class="accred-note">
+        Certified and audited under {accreditations.map((a) => a.name).join(', ')} — with ISO and OHSAS
+        management systems in place.
+      </p>
     </div>
   </section>
 
@@ -155,25 +148,11 @@ const jsonLd = [ld(breadcrumb('Compliance & Sustainability', '/compliance/')), l
 </BaseLayout>
 
 <style>
-  .accred {
-    padding: 2rem 1.75rem;
+  .accred-note {
+    max-width: 760px;
+    margin-top: 1.5rem;
+    font-size: 1.0625rem;
   }
-
-  .accred__badge {
-    width: 52px;
-    height: 52px;
-    border-radius: 12px;
-    background: var(--surface-2);
-    display: grid;
-    place-items: center;
-    color: var(--brand);
-    margin-bottom: 1.1rem;
-  }
-
-  .accred__badge svg { width: 26px; height: 26px; }
-
-  .accred h3 { margin-bottom: 0.5rem; }
-  .accred p { font-size: 0.95rem; }
 
   .initiatives {
     list-style: none;

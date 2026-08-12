@@ -4,9 +4,10 @@ interface Props {
   title: string;
   intro?: string;
   crumb: string;
+  crumbHref?: string;
 }
 
-const { eyebrow, title, intro, crumb } = Astro.props;
+const { eyebrow, title, intro, crumb, crumbHref } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -15,7 +16,9 @@ const base = import.meta.env.BASE_URL;
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href={base}>Home</a>
       <span aria-hidden="true">/</span>
-      <span>{crumb}</span>
+      {crumbHref ? <a href={base + crumbHref.slice(1)}>{crumb}</a> : <span>{crumb}</span>}
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{title}</span>
     </nav>
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h1>{title}</h1>

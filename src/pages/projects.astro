@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import CTASection from '../components/CTASection.astro';
+import DivisionSubnav from '../components/DivisionSubnav.astro';
+import { divisions } from '../data/divisions';
 import { ld, breadcrumb, siteUrl } from '../utils/seo';
 
 const base = import.meta.env.BASE_URL;
@@ -13,63 +15,6 @@ const description =
   'Explore the in-house production divisions of M.M. Knitwear Ltd. — garments, knitting, dyeing, cutting, printing, embroidery, AOP and laundry facilities in Gazipur, Bangladesh.';
 const keywords =
   'garments manufacturing divisions bangladesh, knitting dyeing printing embroidery factory, garment production capacity, aop printing factory bangladesh';
-
-const divisions = [
-  {
-    img: 'upload/projects-garments.jpg',
-    title: 'Garments Division',
-    text: 'A large garments unit with 116 production lines and 3,850 sets of sewing machinery. Our independent quality team of 454 people ensures the customer\u2019s required quality standard, with a factory regular AQL system of 2.5.',
-    stat: '200,000 pieces per day',
-  },
-  {
-    img: 'upload/projects-knitting.jpg',
-    title: 'Knitting Division',
-    text: 'A large circular knitting unit with 225 sets of machines with 20GG, 24GG, 28GG cylinders and optimum attachments to produce all types of weft knitted fabric. Machines are Fukuhara, Fukuhama and Jiunn Long branded.',
-    stat: '45 tons/day \u00B7 25,000 collars/day',
-  },
-  {
-    img: 'upload/projects-dyeing.jpg',
-    title: 'Dyeing Division',
-    text: 'State-of-the-art dyeing machinery with an in-house lab and all physical testing facilities. We can dye cotton, viscose, modal, cotton/poly, poly/cotton and cotton/viscose, with a Biological ETP capacity of 280 m\u00B3 per hour.',
-    stat: '45 tons/day \u00B7 75 dyeing + 20 sample machines',
-  },
-  {
-    img: 'upload/projects-sampling.jpg',
-    title: 'Sample & CAD Facility',
-    text: 'Our sample section is enriched with the latest machinery, expert operators and a CAD system to achieve precise markers, offering the finest prototyping solution.',
-    stat: '147 sample machines \u00B7 8 CAD \u00B7 14,000 pcs/month',
-  },
-  {
-    img: 'upload/projects-cutting.jpg',
-    title: 'Cutting Facility',
-    text: 'Equipped with auto relaxation, auto spreading and auto cutting. We have 20 manual cutting tables and 8 auto cutters, and we check 100% of cut panels before sewing input to ensure accuracy.',
-    stat: '240,000 pieces per day',
-  },
-  {
-    img: 'upload/projects-printing.jpg',
-    title: 'Placement Printing Facility',
-    text: 'Equipped with both manual and machine facilities. We can handle all kinds of water base and plastisol print at pigment, supported by a graphic design and colour team.',
-    stat: '180,000 pcs/day \u00B7 5 auto + 20 manual sets',
-  },
-  {
-    img: 'upload/projects-embroidery.jpg',
-    title: 'Embroidery Section',
-    text: 'Five sets of embroidery machines with 20 heads each supporting up to 9 colours per design, plus applique laser cutting and fusing machines. We handle run stitch, tatami, sequin, chenille, taping and more.',
-    stat: '50,000 pieces per day',
-  },
-  {
-    img: 'upload/projects-aop.jpg',
-    title: 'All Over Printing Facility',
-    text: 'A brand new AOP factory equipped with 15 sets of machines (1 rotary and 1 flat bed). We do pigment, rubber, discharge, glitter, glow in the dark, burnout, metallic and CMYK (photo) printing.',
-    stat: '15,000 kg per day',
-  },
-  {
-    img: 'upload/projects-laundry.jpg',
-    title: 'Laundry Facility',
-    text: 'A total washing solution: common washing, garment dyeing, rinse wash, enzyme wash, softener wash, pigment wash, reactive dyeing, acid wash, stone wash, tie dye, burn out wash and towel bleach wash.',
-    stat: '50,000 pcs/day \u00B7 19 machines \u00B7 15 sample types/day',
-  },
-];
 
 const projectsPage = {
   '@context': 'https://schema.org',
@@ -93,6 +38,7 @@ const jsonLd = [ld(breadcrumb('Projects', '/projects/')), ld(projectsPage)];
 <BaseLayout title={title} description={description} keywords={keywords} canonical="/projects/" jsonLd={jsonLd} active="projects">
   <PageHeader eyebrow="Capabilities" title="Our Projects" crumb="Projects"
     intro="Every stage of production is managed in-house across our vertically integrated knit composite factory in Gazipur — from knitting and dyeing to sewing, printing and finishing." />
+  <DivisionSubnav />
 
   <section class="section">
     <div class="container">
@@ -111,6 +57,9 @@ const jsonLd = [ld(breadcrumb('Projects', '/projects/')), ld(projectsPage)];
               <h3>{d.title}</h3>
               <p>{d.text}</p>
               <div class="division-card__stat">{d.stat}</div>
+              <a class="btn btn--primary btn--sm division-card__link" href={u(`projects/${d.slug}/`)}>
+                Learn More
+              </a>
             </div>
           </article>
         ))}
@@ -182,5 +131,9 @@ const jsonLd = [ld(breadcrumb('Projects', '/projects/')), ld(projectsPage)];
     font-weight: 700;
     font-size: 0.9rem;
     color: var(--brand-800);
+  }
+
+  .division-card__link {
+    align-self: flex-start;
   }
 </style>

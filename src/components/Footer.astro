@@ -10,10 +10,10 @@ const quickLinks = [
   { label: 'Projects', href: '/projects/' },
 ];
 
-const moreLinks = [
-  { label: 'Portfolio', href: '/portfolio/' },
-  { label: 'Knitting Division', href: '/out-projects/' },
-  { label: 'Contact Us', href: '/contact/' },
+const sisterConcerns = [
+  { label: 'M.M. Group', href: 'https://www.mmgroupinds.com' },
+  { label: 'Mamun Knitwear Ltd.', href: 'https://www.mamunknitwear.com' },
+  { label: 'M.M. Label & Accessories', href: null },
 ];
 
 const year = new Date().getFullYear();
@@ -24,12 +24,15 @@ const year = new Date().getFullYear();
     <div class="site-footer__grid">
       <div class="site-footer__brand">
         <a href={base} aria-label="M.M. Knitwear Ltd. — Home">
-          <img src={base + 'upload/footer-logo.png'} alt="M.M. Knitwear Ltd." width="176" height="46" />
+          <img src={base + 'images/logo.png'} alt="M.M. Knitwear Ltd." width="42" height="42" />
         </a>
         <p>
           100% export-oriented knit composite manufacturer producing high-quality knitted
           apparel for leading international brands since 2001.
         </p>
+        <a class="site-footer__brand-link" href={base + 'about-us/'}>
+          Learn more about us <span aria-hidden="true">&rarr;</span>
+        </a>
         <div class="socials">
           {socials.map((s) => (
             <a href={s.href} aria-label={s.label} target="_blank" rel="noreferrer">
@@ -49,11 +52,17 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <h3>Explore</h3>
+        <h3>Sister Concerns</h3>
         <ul role="list">
-          {moreLinks.map((l) => (
-            <li><a href={base + l.href.slice(1)}>{l.label}</a></li>
-          ))}
+          {sisterConcerns.map((l) =>
+            l.href ? (
+              <li>
+                <a href={l.href} target="_blank" rel="noreferrer">{l.label}</a>
+              </li>
+            ) : (
+              <li><span>{l.label}</span></li>
+            )
+          )}
         </ul>
       </div>
 
@@ -91,8 +100,8 @@ const year = new Date().getFullYear();
     <div class="site-footer__bottom">
       <div class="site-footer__bottom-inner">
         <span>&copy; {year} {SITE.name}. All rights reserved.</span>
-        <a href="http://www.mamunknitwear.com" target="_blank" rel="noreferrer">
-          A Mamun Knitwear Group Company
+        <a href="https://www.mmgroupinds.com" target="_blank" rel="noreferrer">
+          A M.M. Group Company
         </a>
       </div>
     </div>
