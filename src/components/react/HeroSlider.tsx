@@ -49,7 +49,12 @@ export default function HeroSlider({ slides, interval = 6000 }: Props) {
           role="group"
           aria-roledescription="slide"
           aria-hidden={i !== index}
-          style={{ backgroundImage: `url(${slide.image})` }}
+          style={{
+            backgroundImage: `url(${slide.image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundRepeat: 'no-repeat',
+          }}
         />
       ))}
 

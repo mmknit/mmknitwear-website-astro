@@ -10,9 +10,9 @@ export const SITE = {
   headOffice: 'House 16 (3rd Floor), Road 10, Sector 01, Uttara, Dhaka 1230, Bangladesh',
   factory: 'Ambagh Road, Nilnagar, Konabari, Gazipur 1700, Bangladesh',
   headOfficeMap:
-    'https://www.google.com/maps/search/?api=1&query=House+16%2C+Road+10%2C+Sector+01%2C+Uttara+Model+Town%2C+Dhaka%2C+Bangladesh',
+    'https://www.google.com/maps/search/?api=1&query=M.M.+Knitwear+Ltd.+Corporate+Office%2C+11-A+Rd-10%2C+Dhaka+1230',
   factoryMap:
-    'https://www.google.com/maps/search/?api=1&query=Ambagh+Road%2C+Konabari%2C+Gazipur%2C+Bangladesh',
+    'https://www.google.com/maps/search/?api=1&query=M.M.+Knitwear+Ltd.%2C+Ambag+Rd%2C+Konabari',
   factoryEmbed:
     'https://www.google.com/maps?q=M.M.%20Knitwear%20Ltd.%2C%20Ambag%20Rd%2C%20Konabari%2C%20Gazipur%2C%20Bangladesh&output=embed',
 };

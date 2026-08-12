@@ -1,6 +1,6 @@
 ---
 import MobileNav from './react/MobileNav';
-import { socials } from '../data/site';
+import { divisions } from '../data/divisions';
 
 const base = import.meta.env.BASE_URL;
 
@@ -8,13 +8,20 @@ interface NavItem {
   key: string;
   label: string;
   href: string;
+  children?: { key: string; label: string; href: string }[];
 }
+
+const DIVISION_LINKS = divisions.map((d) => ({
+  key: d.slug,
+  label: d.title,
+  href: `/projects/${d.slug}/`,
+}));
 
 const NAV: NavItem[] = [
   { key: 'home', label: 'Home', href: '/' },
   { key: 'about', label: 'About Us', href: '/about-us/' },
   { key: 'compliance', label: 'Compliance', href: '/compliance/' },
-  { key: 'projects', label: 'Projects', href: '/projects/' },
+  { key: 'projects', label: 'Projects', href: '/projects/', children: DIVISION_LINKS },
   { key: 'portfolio', label: 'Portfolio', href: '/portfolio/' },
 ];
 
@@ -23,32 +30,12 @@ interface Props {
 }
 
 const { active } = Astro.props;
+
+const pagePath = Astro.url.pathname.replace(/\/+$/, '');
+const isActiveChild = (href: string) => pagePath === base.replace(/\/$/, '') + href.slice(0, -1);
 ---
 
 <header class="site-header">
-  <div class="topbar">
-    <div class="container topbar__inner">
-      <div class="topbar__links">
-        <a href="mailto:info@mmknitwear.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          info@mmknitwear.com
-        </a>
-        <a href="tel:+8809666768768">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.4-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2Z"/></svg>
-          +880 9666 768 768
-        </a>
-      </div>
-      <div class="topbar__right">
-        <span>Uttara, Dhaka &middot; Konabari, Gazipur</span>
-        {socials.map((s) => (
-          <a href={s.href} aria-label={s.label} target="_blank" rel="noreferrer">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={s.path} /></svg>
-          </a>
-        ))}
-      </div>
-    </div>
-  </div>
-
   <div class="site-header__main">
     <div class="container site-header__inner">
       <a class="logo" href={base} aria-label="M.M. Knitwear Ltd. — Home">
@@ -56,14 +43,29 @@ const { active } = Astro.props;
       </a>
 
       <nav class="main-nav" aria-label="Primary">
-        {NAV.map((item) => (
-          <a
-            href={base + item.href.slice(1)}
-            aria-current={active === item.key ? 'page' : undefined}
-          >
-            {item.label}
-          </a>
-        ))}
+        {NAV.map((item) =>
+          item.children ? (
+            <div class="nav-drop">
+              <a href={base + item.href.slice(1)} aria-current={active === item.key ? 'page' : undefined}>
+                {item.label}
+                <svg class="nav-drop__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </a>
+              <div class="nav-drop__menu">
+                {item.children.map((c) => (
+                  <a href={base + c.href.slice(1)} aria-current={isActiveChild(c.href) ? 'page' : undefined}>
+                    {c.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a href={base + item.href.slice(1)} aria-current={active === item.key ? 'page' : undefined}>
+              {item.label}
+            </a>
+          )
+        )}
         <a href={base + 'contact/'} aria-current={active === 'contact' ? 'page' : undefined}>Contact</a>
       </nav>
 
@@ -79,62 +81,67 @@ const { active } = Astro.props;
     background: #fff;
   }
 
-  .topbar {
-    background: var(--brand-900);
-    color: #c3e4f9;
-    font-size: 0.82rem;
-    font-weight: 500;
+  .nav-drop {
+    position: relative;
   }
 
-  .topbar__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    min-height: 40px;
-    padding-block: 0.35rem;
-  }
-
-  .topbar__links {
-    display: flex;
-    align-items: center;
-    gap: 1.4rem;
-  }
-
-  .topbar__links a,
-  .topbar__right a {
+  .nav-drop > a {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    transition: color 0.2s ease;
+    gap: 0.3rem;
   }
 
-  .topbar__links a:hover,
-  .topbar__right a:hover {
-    color: #fff;
+  .nav-drop__chevron {
+    width: 13px;
+    height: 13px;
+    transition: transform 0.2s ease;
   }
 
-  .topbar__links svg {
-    width: 15px;
-    height: 15px;
+  .nav-drop:hover .nav-drop__chevron {
+    transform: rotate(180deg);
   }
 
-  .topbar__right {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
+  .nav-drop__menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    min-width: 270px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem;
+    display: grid;
+    gap: 0.15rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    z-index: 60;
   }
 
-  .topbar__right svg {
-    width: 15px;
-    height: 15px;
-    fill: currentColor;
+  .nav-drop:hover .nav-drop__menu,
+  .nav-drop:focus-within .nav-drop__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(6px);
   }
 
-  @media (max-width: 760px) {
-    .topbar__right span,
-    .topbar__links a:first-child {
-      display: none;
-    }
+  .nav-drop__menu a {
+    display: block;
+    padding: 0.6rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--slate);
+    white-space: nowrap;
+  }
+
+  .nav-drop__menu a:hover {
+    background: var(--surface);
+    color: var(--brand-700);
+  }
+
+  .nav-drop__menu a::after {
+    display: none;
   }
 </style>

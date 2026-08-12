@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import CTASection from '../components/CTASection.astro';
-import DivisionSubnav from '../components/DivisionSubnav.astro';
 import { divisions } from '../data/divisions';
 import { ld, breadcrumb, siteUrl } from '../utils/seo';
 
@@ -38,7 +37,6 @@ const jsonLd = [ld(breadcrumb('Projects', '/projects/')), ld(projectsPage)];
 <BaseLayout title={title} description={description} keywords={keywords} canonical="/projects/" jsonLd={jsonLd} active="projects">
   <PageHeader eyebrow="Capabilities" title="Our Projects" crumb="Projects"
     intro="Every stage of production is managed in-house across our vertically integrated knit composite factory in Gazipur — from knitting and dyeing to sewing, printing and finishing." />
-  <DivisionSubnav />
 
   <section class="section">
     <div class="container">
@@ -55,8 +53,8 @@ const jsonLd = [ld(breadcrumb('Projects', '/projects/')), ld(projectsPage)];
             </div>
             <div class="division-card__body">
               <h3>{d.title}</h3>
-              <p>{d.text}</p>
               <div class="division-card__stat">{d.stat}</div>
+              <p>{d.text}</p>
               <a class="btn btn--primary btn--sm division-card__link" href={u(`projects/${d.slug}/`)}>
                 Learn More
               </a>
@@ -89,11 +87,14 @@ const jsonLd = [ld(breadcrumb('Projects', '/projects/')), ld(projectsPage)];
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    padding: 1.5rem;
   }
 
   .division-card__media {
     aspect-ratio: 3/2;
     overflow: hidden;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
   }
 
   .division-card__media img {
@@ -108,15 +109,14 @@ const jsonLd = [ld(breadcrumb('Projects', '/projects/')), ld(projectsPage)];
   }
 
   .division-card__body {
-    padding: 1.6rem 1.6rem 1.8rem;
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.75rem;
   }
 
   .division-card__body h3 {
     font-size: 1.12rem;
-    margin-bottom: 0;
+    margin: 0.25rem 0 0;
   }
 
   .division-card__body p {
@@ -124,13 +124,10 @@ const jsonLd = [ld(breadcrumb('Projects', '/projects/')), ld(projectsPage)];
   }
 
   .division-card__stat {
-    margin-top: auto;
-    padding-top: 0.85rem;
-    border-top: 1px dashed var(--line);
     font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--brand-800);
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--brand-700);
   }
 
   .division-card__link {

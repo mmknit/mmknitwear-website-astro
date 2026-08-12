@@ -4,6 +4,7 @@ interface NavItem {
   key: string;
   label: string;
   href: string;
+  children?: { key: string; label: string; href: string }[];
 }
 
 interface Props {
@@ -55,14 +56,28 @@ export default function MobileNav({ nav, active }: Props) {
             &times;
           </button>
           {nav.map((item) => (
-            <a
-              key={item.key}
-              href={base + item.href.slice(1)}
-              aria-current={active === item.key ? 'page' : undefined}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </a>
+            <div key={item.key}>
+              <a
+                href={base + item.href.slice(1)}
+                aria-current={active === item.key ? 'page' : undefined}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </a>
+              {item.children && (
+                <div className="mobile-nav__sub">
+                  {item.children.map((c) => (
+                    <a
+                      key={c.key}
+                      href={base + c.href.slice(1)}
+                      onClick={() => setOpen(false)}
+                    >
+                      {c.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
           <a
             href={base + 'contact/'}

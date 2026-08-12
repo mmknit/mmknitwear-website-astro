@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
 import CTASection from '../../components/CTASection.astro';
 import DivisionSubnav from '../../components/DivisionSubnav.astro';
 import { divisions } from '../../data/divisions';
@@ -65,6 +66,49 @@ const jsonLd = [
     </div>
   </section>
 
+  <section class="section section--surface">
+    <div class="container">
+      <SectionTitle
+        eyebrow="Key Information"
+        title="Facility at a Glance"
+        text="The key figures and capabilities that define this division."
+        center
+      />
+      <div class="division-facts">
+        {d.facts.map((f) => (
+          <div class="division-fact reveal">
+            <span>{f.label}</span>
+            <strong>{f.value}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="division-overview">
+        <div class="division-overview__intro reveal">
+          <span class="eyebrow">Overview</span>
+          <h2>About this Division</h2>
+          <p>{d.overview}</p>
+        </div>
+        <div class="division-overview__checks">
+          <ul class="split__checks">
+            {d.highlights.map((h) => (
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                {h}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <CTASection />
 </BaseLayout>
 
@@ -119,9 +163,78 @@ const jsonLd = [
     margin-bottom: 1.6rem;
   }
 
+  .division-facts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .division-fact {
+    background: #fff;
+    border: 1.5px solid var(--brand-600);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 10px 24px -12px rgba(0, 163, 222, 0.45);
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+    display: grid;
+    gap: 0.4rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .division-fact:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px -16px rgba(0, 163, 222, 0.55);
+  }
+
+  .division-fact span {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .division-fact strong {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    color: var(--brand-800);
+  }
+
+  .division-overview {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
+  .division-overview__intro h2 {
+    margin: 0.75rem 0 1.1rem;
+  }
+
+  .division-overview__checks {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 2rem 1.75rem;
+  }
+
+  .division-overview__checks .split__checks {
+    margin-top: 0;
+  }
+
+  @media (max-width: 900px) {
+    .division-facts { grid-template-columns: repeat(2, 1fr); }
+  }
+
   @media (max-width: 860px) {
-    .division-page {
-      grid-template-columns: 1fr;
-    }
+    .division-page,
+    .division-overview { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .division-facts { grid-template-columns: 1fr; }
   }
 </style>
