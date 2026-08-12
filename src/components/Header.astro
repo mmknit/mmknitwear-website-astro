@@ -16,7 +16,6 @@ const NAV: NavItem[] = [
   { key: 'compliance', label: 'Compliance', href: '/compliance/' },
   { key: 'projects', label: 'Projects', href: '/projects/' },
   { key: 'portfolio', label: 'Portfolio', href: '/portfolio/' },
-  { key: 'news', label: 'In the News', href: '/newspaper/' },
 ];
 
 interface Props {
@@ -54,10 +53,6 @@ const { active } = Astro.props;
     <div class="container site-header__inner">
       <a class="logo" href={base} aria-label="M.M. Knitwear Ltd. — Home">
         <img src={base + 'images/logo.png'} alt="M.M. Knitwear Ltd." width="42" height="42" />
-        <span>
-          M.M. Knitwear Ltd.
-          <span class="logo__sub">Knit Composite Manufacturer</span>
-        </span>
       </a>
 
       <nav class="main-nav" aria-label="Primary">
@@ -73,7 +68,6 @@ const { active } = Astro.props;
       </nav>
 
       <div class="header-cta">
-        <a class="btn btn--primary btn--sm" href={base + 'contact/'}>Get a Quote</a>
         <MobileNav nav={NAV} active={active} client:idle />
       </div>
     </div>
@@ -87,7 +81,7 @@ const { active } = Astro.props;
 
   .topbar {
     background: var(--brand-900);
-    color: #aebfd8;
+    color: #c3e4f9;
     font-size: 0.82rem;
     font-weight: 500;
   }

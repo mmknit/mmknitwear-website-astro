@@ -71,9 +71,6 @@ export default function MobileNav({ nav, active }: Props) {
           >
             Contact
           </a>
-          <a className="btn btn--primary mobile-nav__cta" href={base + 'contact/'} onClick={() => setOpen(false)}>
-            Get a Quote
-          </a>
         </div>
       </div>
     </div>

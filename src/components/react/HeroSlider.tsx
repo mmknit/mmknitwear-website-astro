@@ -2,11 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface Slide {
   image: string;
-  eyebrow: string;
-  title: string;
-  text: string;
-  primary: { label: string; href: string };
-  secondary?: { label: string; href: string };
+  title?: string;
 }
 
 interface Props {
@@ -38,8 +34,6 @@ export default function HeroSlider({ slides, interval = 6000 }: Props) {
     timer.current = setInterval(() => setIndex((i) => (i + 1) % slides.length), interval);
   };
 
-  const s = slides[index];
-
   return (
     <section
       className="hero"
@@ -59,23 +53,7 @@ export default function HeroSlider({ slides, interval = 6000 }: Props) {
         />
       ))}
 
-      <div className="hero__content">
-        <div className="container hero__copy">
-          <p className="eyebrow">{s.eyebrow}</p>
-          <h1>{s.title}</h1>
-          <p>{s.text}</p>
-          <div className="hero__actions">
-            <a className="btn btn--accent" href={s.primary.href}>
-              {s.primary.label}
-            </a>
-            {s.secondary && (
-              <a className="btn btn--ghost" href={s.secondary.href}>
-                {s.secondary.label}
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
+      <h1 className="sr-only">{slides[0].title ?? 'M.M. Knitwear Ltd.'}</h1>
 
       <button
         type="button"
