@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import CTASection from '../../components/CTASection.astro';
+import { ld, siteUrl } from '../../utils/seo';
+
+const base = import.meta.env.BASE_URL;
+const u = (p: string) => base + p;
+
+const title = 'Leadership | M.M. Knitwear Ltd. – Managing Director & Director';
+const description =
+  'Meet the leadership of M.M. Knitwear Ltd.: Md. Mofizul Islam, Managing Director, and Md. Mamunur Rashid, Director. Learn about their vision for export growth, compliance and manufacturing excellence.';
+const keywords =
+  'mm knitwear managing director, mofizul islam, mamunur rashid, knitwear company leadership, garment manufacturer director bangladesh';
+
+const profiles = [
+  {
+    id: 'mofizul-islam',
+    name: 'Md. Mofizul Islam',
+    role: 'Managing Director, M.M. Knitwear Ltd.',
+    img: 'upload/team-mofizul.jpg',
+    bio: [
+      'As one of Bangladesh\u2019s leading garment exporters, supported by a well-established buying house, we are committed to expanding our share of the global readymade-garment market. By welcoming new buyers and entering emerging markets \u2014 including the CIS countries, Japan and other new regions \u2014 we aim to grow our export volume and generate sustained demand for our existing and prospective factories, contributing significantly to the country\u2019s foreign-exchange earnings.',
+      'Alongside this growth, we are focused on creating more jobs through the establishment of modern, compliance-driven factories in the garment and allied sectors. By strengthening backward-linkage industries and investing in additional automatic Jacquard machines, we continue to add greater value to finished products and increase direct exports of high-quality goods.',
+      'With environmental stewardship and decent labour practices at the forefront of everything we do, all of our factories have been designed to satisfy both local and international legal requirements \u2014 the foundation of responsible manufacturing.',
+      'We thank you for your continued trust and support.',
+    ],
+  },
+  {
+    id: 'mamunur-rashid',
+    name: 'Md. Mamunur Rashid',
+    role: 'Director, M.M. Knitwear Ltd.',
+    img: 'upload/team-mamunur.jpg',
+    bio: [
+      'With more than 20 years of experience in Bangladesh\u2019s textile and garment manufacturing industry, we continue to raise the quality of our products and expand our production capacity as the sector grows increasingly competitive. As a solutions provider to a diverse client portfolio, we have broadened our production process to develop fabrics with unique and specific functionalities. This drives us to continuously upgrade our technology and machinery \u2014 giving us the flexibility to explore innovative yarns and fibres and produce higher-grade textiles and garments.',
+      'Through years of industry experience and close collaboration with our customers, we have developed a clear understanding of present and future market trends, as well as what our customers truly value. Above all, they want honesty, to be heard and appreciated, to receive a product they can take pride in, and to know that their investment delivers genuine value.',
+      'We welcome your comments and feedback, and we hope you will have the opportunity to visit our facility and meet our highly qualified and committed staff.',
+      'Thank you.',
+    ],
+  },
+];
+
+const personLd = profiles.map((p, i) =>
+  ld({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${siteUrl}/about-us/leadership/#${p.id}`,
+    name: p.name,
+    jobTitle: p.role,
+    worksFor: { '@id': `${siteUrl}/#organization` },
+    url: `${siteUrl}/about-us/leadership/#${p.id}`,
+    image: siteUrl + '/' + p.img,
+  })
+);
+
+const jsonLd = [
+  ld({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'About Us', item: `${siteUrl}/about-us/` },
+      { '@type': 'ListItem', position: 3, name: 'Leadership', item: `${siteUrl}/about-us/leadership/` },
+    ],
+  }),
+  ...personLd,
+];
+---
+
+<BaseLayout title={title} description={description} keywords={keywords} canonical="/about-us/leadership/" jsonLd={jsonLd} active="about">
+  <PageHeader eyebrow="Our Leadership" title="Leadership" crumb="About Us" crumbHref="/about-us/"
+    intro="Meet the directors who steer M.M. Knitwear Ltd. — their vision, values and commitment to responsible manufacturing." />
+
+  <section class="section">
+    <div class="container">
+      <div class="profiles">
+        {profiles.map((p) => (
+          <article class="profile-card reveal" id={p.id}>
+            <div class="profile-card__media">
+              <img src={u(p.img)} alt={`${p.name}, ${p.role}`} width="400" height="400" loading="lazy" />
+            </div>
+            <div class="profile-card__body">
+              <SectionTitle eyebrow={p.role} title={p.name} />
+              <div class="profile-card__bio">
+                {p.bio.map((para) => <p>{para}</p>)}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .profiles {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .profile-card {
+    display: grid;
+    grid-template-columns: minmax(240px, 340px) 1fr;
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .profile-card__media {
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .profile-card__media img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .profile-card__bio p {
+    color: var(--slate);
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 720px) {
+    .profile-card { grid-template-columns: 1fr; }
+    .profile-card__media { max-width: 320px; }
+  }
+</style>

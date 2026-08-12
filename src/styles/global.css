@@ -3,8 +3,8 @@
    ========================================================================== */
 
 :root {
-  --font-head: 'Century Gothic', 'CenturyGothic', 'AppleGothic', 'URW Gothic L', 'Avant Garde', 'Futura', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-body: 'Source Sans 3', 'Source Sans Pro', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-head: 'Jost', 'Century Gothic', 'CenturyGothic', 'AppleGothic', 'URW Gothic L', 'Avant Garde', 'Futura', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Manrope', 'Century Gothic', 'CenturyGothic', 'Segoe UI', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
   --brand: #00c2ff;
   --brand-600: #00a3de;
@@ -464,12 +464,60 @@ h4 { font-size: 1.05rem; }
   color: var(--brand);
 }
 
-.mobile-nav__sub {
+.mobile-nav__group {
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-nav__row {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-nav__row > a {
+  flex: 1;
+}
+
+.mobile-nav__toggle {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  margin-right: 0.35rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--slate);
   display: grid;
+  place-items: center;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.25s ease;
+}
+
+.mobile-nav__toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mobile-nav__toggle:hover {
+  background: var(--surface);
+  color: var(--brand-700);
+}
+
+.mobile-nav__toggle[aria-expanded='true'] {
+  transform: rotate(180deg);
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+
+.mobile-nav__sub {
+  display: none;
   gap: 0.15rem;
   margin: 0.15rem 0 0.5rem 1rem;
   padding-left: 0.75rem;
   border-left: 2px solid var(--line);
+}
+
+.mobile-nav__sub.is-open {
+  display: grid;
 }
 
 .mobile-nav__sub a {
@@ -901,6 +949,9 @@ h4 { font-size: 1.05rem; }
 }
 
 .team-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   border-radius: var(--radius);
   overflow: hidden;
   background: #fff;
@@ -1377,8 +1428,8 @@ h4 { font-size: 1.05rem; }
 }
 
 .site-footer__brand img {
-  height: 64px;
-  width: 64px;
+  width: clamp(150px, 16vw, 210px);
+  height: auto;
   object-fit: contain;
 }
 

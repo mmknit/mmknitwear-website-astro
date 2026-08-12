@@ -30,3 +30,6 @@ coverage/
 
 # Original static site export (reference only)
 mmknitwear.com-html/
+
+# Unoptimized source images (optimized copies live in public/upload)
+recources/

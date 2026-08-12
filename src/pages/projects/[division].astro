@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import CTASection from '../../components/CTASection.astro';
-import DivisionSubnav from '../../components/DivisionSubnav.astro';
 import { divisions } from '../../data/divisions';
 import { ld, siteUrl } from '../../utils/seo';
 
@@ -43,7 +42,6 @@ const jsonLd = [
 
 <BaseLayout title={title} description={description} keywords={keywords} canonical={path} jsonLd={jsonLd} active="projects">
   <PageHeader eyebrow="Production Divisions" title={d.title} crumb="Projects" crumbHref="/projects/" intro={d.short} />
-  <DivisionSubnav current={d.slug} />
 
   <section class="section">
     <div class="container">

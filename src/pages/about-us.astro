@@ -82,6 +82,16 @@ const markets = [
   { country: 'UK', pct: 1.4 },
 ];
 
+const pieColors = ['#00c2ff', '#0ea5e9', '#0891b2', '#0e7490', '#155e75', '#34d399', '#f59e0b', '#f43f5e'];
+let pieAcc = 0;
+const pieSegments = markets.map((m, i) => {
+  const from = Math.round(pieAcc * 10) / 10;
+  pieAcc += m.pct;
+  const to = Math.round(pieAcc * 10) / 10;
+  return `${pieColors[i % pieColors.length]} ${from}% ${to}%`;
+});
+const pieGradient = `conic-gradient(${pieSegments.join(', ')})`;
+
 const buildings = [
   { name: 'Building 1', size: '78,282 sqft' },
   { name: 'Building 2', size: '1,33,666 sqft' },
@@ -104,15 +114,18 @@ const extras = [
 ];
 
 const team = [
-  { name: 'Mofizul Islam', role: 'Managing Director', img: 'upload/team-mofizul.jpg' },
-  { name: 'Mamunur Rashid', role: 'Director', img: 'upload/team-mamunur.jpg' },
-  { name: 'A.K.M. Shaheed Ahmed', role: 'Executive Director', img: 'upload/team-ed.jpg' },
-  { name: 'Nurul Islam', role: 'Director (Production)', img: 'upload/team-pd.jpg' },
-  { name: 'Abdul Haque', role: 'Sr. General Manager (Accounts & Finance)', img: 'upload/team-gm-accounts.jpg' },
-  { name: 'Bashir Ahmed', role: 'Sr. General Manager (Marketing & Merchandising)', img: 'upload/team-srgm-mkt.jpg' },
-  { name: 'Monirul Islam', role: 'General Manager (Operation)', img: 'upload/team-gm-operation.jpg' },
-  { name: 'Mamun Or Rashid', role: 'General Manager (Knitting)', img: 'upload/team-gm-knitting.jpg' },
-  { name: 'Mahbubul Alam', role: 'AGM (Marketing & Merchandising)', img: 'upload/team-agm.jpg' },
+  {
+    name: 'Mofizul Islam',
+    role: 'Managing Director',
+    img: 'upload/team-mofizul.jpg',
+    href: 'about-us/leadership/#mofizul-islam',
+  },
+  {
+    name: 'Mamunur Rashid',
+    role: 'Director',
+    img: 'upload/team-mamunur.jpg',
+    href: 'about-us/leadership/#mamunur-rashid',
+  },
 ];
 
 const aboutPage = {
@@ -261,17 +274,18 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
         </div>
         <div class="growth__share reveal">
           <h3>Business Share</h3>
-          {markets.map((m) => (
-            <div class="share">
-              <div class="share__row">
-                <span>{m.country}</span>
-                <strong>{m.pct}%</strong>
-              </div>
-              <div class="share__track">
-                <span style={`width:${(m.pct / 35.4) * 100}%`}></span>
-              </div>
-            </div>
-          ))}
+          <div class="pie-wrap">
+            <div class="pie" style={`background:${pieGradient}`} role="img" aria-label="Export market share breakdown by country"></div>
+            <ul class="pie-legend" role="list">
+              {markets.map((m, i) => (
+                <li>
+                  <span class="pie-legend__dot" style={`background:${pieColors[i % pieColors.length]}`} aria-hidden="true"></span>
+                  <span>{m.country}</span>
+                  <strong>{m.pct}%</strong>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -312,15 +326,20 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
       <SectionTitle eyebrow="Leadership" title="Meet the Team" center />
       <div class="team-grid">
         {team.map((t) => (
-          <div class="team-card reveal">
+          <a class="team-card reveal" href={u(t.href)}>
             <img src={u(t.img)} alt={`${t.name}, ${t.role}`} loading="lazy" width="400" height="400" />
             <div class="team-card__body">
               <h3>{t.name}</h3>
               <span class="team-card__role">{t.role}</span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
+      <p class="team-more">
+        <a class="btn btn--outline" href={u('about-us/leadership/')}>
+          View Full Profiles <span aria-hidden="true">&rarr;</span>
+        </a>
+      </p>
     </div>
   </section>
 
@@ -493,10 +512,16 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
     font-size: 0.95rem;
   }
 
+  .team-more {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
   .growth {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: clamp(2rem, 5vw, 4rem);
+    align-items: stretch;
   }
 
   @media (max-width: 860px) {
@@ -512,13 +537,19 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
     padding: 1.75rem;
   }
 
+  .growth__chart {
+    display: flex;
+    flex-direction: column;
+  }
+
   .growth h3 { margin-bottom: 1.5rem; }
 
   .bars {
+    flex: 1;
+    min-height: 220px;
     display: flex;
     align-items: flex-end;
     gap: 0.85rem;
-    height: 240px;
     padding-top: 1.5rem;
   }
 
@@ -552,32 +583,53 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
     color: var(--muted);
   }
 
-  .share {
-    margin-bottom: 1.1rem;
+  .pie-wrap {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: center;
   }
 
-  .share__row {
-    display: flex;
-    justify-content: space-between;
+  .pie {
+    width: min(190px, 34vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    -webkit-mask: radial-gradient(farthest-side, transparent 56%, #000 57%);
+    mask: radial-gradient(farthest-side, transparent 56%, #000 57%);
+  }
+
+  .pie-legend {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
     font-size: 0.9rem;
+  }
+
+  .pie-legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
     color: var(--ink);
-    margin-bottom: 0.4rem;
   }
 
-  .share__row strong { color: var(--brand-800); }
-
-  .share__track {
-    height: 8px;
-    border-radius: 999px;
-    background: var(--surface-2);
-    overflow: hidden;
+  .pie-legend__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex: 0 0 auto;
   }
 
-  .share__track span {
-    display: block;
-    height: 100%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--brand), var(--accent));
+  .pie-legend strong {
+    color: var(--brand-800);
+    margin-left: auto;
+  }
+
+  @media (max-width: 520px) {
+    .pie-wrap {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
   }
 
   .buildings {
