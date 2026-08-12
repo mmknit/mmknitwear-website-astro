@@ -180,28 +180,24 @@ const mailto = `mailto:${SITE.email}?subject=${subject}`;
       <MapEmbed src={SITE.factoryEmbed} title="M.M. Knitwear factory location, Konabari, Gazipur" />
 
       <div class="faq-block">
-        <SectionTitle eyebrow="FAQ" title="Frequently Asked Questions" center />
-        <div class="faq-list">
-          {faqs.map((f) => (
-            <details class="faq-item">
-              <summary>
-                {f.q}
-                <span class="faq-item__icon" aria-hidden="true">+</span>
-              </summary>
-              <div class="faq-item__body">{f.a}</div>
-            </details>
-          ))}
-        </div>
+        <details class="faq-collapse">
+          <summary class="faq-collapse__head">
+            <p class="eyebrow">FAQ</p>
+            <div class="faq-collapse__title">
+              <h2>Frequently Asked Questions</h2>
+              <span class="faq-collapse__icon" aria-hidden="true">+</span>
+            </div>
+          </summary>
+          <div class="faq-list">
+            {faqs.map((f) => (
+              <div class="faq-item">
+                <h3 class="faq-item__q">{f.q}</h3>
+                <p class="faq-item__body">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </details>
       </div>
     </div>
   </section>
 </BaseLayout>
-
-<script>
-  document.querySelectorAll('.faq-item').forEach((item) => {
-    item.addEventListener('click', (e) => {
-      if (e.target.closest('summary')) return;
-      if (!item.hasAttribute('open')) item.setAttribute('open', '');
-    });
-  });
-</script>
