@@ -184,7 +184,10 @@ const mailto = `mailto:${SITE.email}?subject=${subject}`;
         <div class="faq-list">
           {faqs.map((f) => (
             <details class="faq-item">
-              <summary>{f.q}</summary>
+              <summary>
+                {f.q}
+                <span class="faq-item__icon" aria-hidden="true">+</span>
+              </summary>
               <div class="faq-item__body">{f.a}</div>
             </details>
           ))}
