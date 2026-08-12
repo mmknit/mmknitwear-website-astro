@@ -1,0 +1,97 @@
+---
+interface Slide {
+  image: string;
+  title?: string;
+}
+
+interface Props {
+  slides: Slide[];
+  interval?: number;
+}
+
+const { slides, interval = 6000 } = Astro.props;
+---
+
+<section class="hero" data-hero data-interval={interval} aria-roledescription="carousel" aria-label="Highlights">
+  {slides.map((slide, i) => (
+    <div
+      class={`hero__slide${i === 0 ? ' is-active' : ''}`}
+      role="group"
+      aria-roledescription="slide"
+      aria-hidden={i !== 0}
+      style={`background-image:url(${slide.image});background-size:cover;background-position:center center;background-repeat:no-repeat;`}
+    />
+  ))}
+
+  <h1 class="sr-only">{slides[0].title ?? 'M.M. Knitwear Ltd.'}</h1>
+
+  <button
+    type="button"
+    class="hero__arrow hero__arrow--prev"
+    aria-label="Previous slide"
+  >
+    &larr;
+  </button>
+  <button
+    type="button"
+    class="hero__arrow hero__arrow--next"
+    aria-label="Next slide"
+  >
+    &rarr;
+  </button>
+
+  <div class="hero__dots" role="group" aria-label="Slides">
+    {slides.map((_, i) => (
+      <button
+        type="button"
+        class={`hero__dot${i === 0 ? ' is-active' : ''}`}
+        aria-label={`Go to slide ${i + 1}`}
+      />
+    ))}
+  </div>
+</section>
+
+<script>
+  const hero = document.querySelector('[data-hero]');
+  if (hero) {
+    const slides = Array.from(hero.querySelectorAll('.hero__slide'));
+    const dots = Array.from(hero.querySelectorAll('.hero__dot'));
+    const interval = Number(hero.dataset.interval) || 6000;
+    let index = 0;
+    let timer = null;
+
+    const render = () => {
+      slides.forEach((el, i) => {
+        el.classList.toggle('is-active', i === index);
+        el.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+      });
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+    };
+
+    const go = (next) => {
+      index = ((next % slides.length) + slides.length) % slides.length;
+      render();
+    };
+
+    const start = () => {
+      stop();
+      timer = window.setInterval(() => go(index + 1), interval);
+    };
+
+    const stop = () => {
+      if (timer) window.clearInterval(timer);
+      timer = null;
+    };
+
+    hero.addEventListener('mouseenter', stop);
+    hero.addEventListener('mouseleave', start);
+    hero.addEventListener('focusin', stop);
+    hero.addEventListener('focusout', start);
+
+    hero.querySelector('.hero__arrow--prev')?.addEventListener('click', () => go(index - 1));
+    hero.querySelector('.hero__arrow--next')?.addEventListener('click', () => go(index + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+
+    start();
+  }
+</script>

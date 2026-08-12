@@ -176,22 +176,29 @@ const mailto = `mailto:${SITE.email}?subject=${subject}`;
 
   <section class="section">
     <div class="container">
-      <SectionTitle eyebrow="FAQ" title="Frequently Asked Questions" center />
-      <div class="faq-list" style="margin-inline:auto;">
-        {faqs.map((f) => (
-          <details class="faq-item">
-            <summary>{f.q}</summary>
-            <div class="faq-item__body">{f.a}</div>
-          </details>
-        ))}
+      <SectionTitle eyebrow="Our Factory" title="Find Us on the Map" center />
+      <MapEmbed src={SITE.factoryEmbed} title="M.M. Knitwear factory location, Konabari, Gazipur" />
+
+      <div class="faq-block">
+        <SectionTitle eyebrow="FAQ" title="Frequently Asked Questions" center />
+        <div class="faq-list">
+          {faqs.map((f) => (
+            <details class="faq-item">
+              <summary>{f.q}</summary>
+              <div class="faq-item__body">{f.a}</div>
+            </details>
+          ))}
+        </div>
       </div>
     </div>
   </section>
-
-  <section class="section section--surface">
-    <div class="container">
-      <SectionTitle eyebrow="Our Factory" title="Find Us on the Map" center />
-      <MapEmbed src={SITE.factoryEmbed} title="M.M. Knitwear factory location, Konabari, Gazipur" />
-    </div>
-  </section>
 </BaseLayout>
+
+<script>
+  document.querySelectorAll('.faq-item').forEach((item) => {
+    item.addEventListener('click', (e) => {
+      if (e.target.closest('summary')) return;
+      if (!item.hasAttribute('open')) item.setAttribute('open', '');
+    });
+  });
+</script>

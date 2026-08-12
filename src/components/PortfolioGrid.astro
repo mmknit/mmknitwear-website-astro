@@ -1,0 +1,101 @@
+---
+interface Props {
+  images: string[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="portfolio-grid" data-portfolio>
+  {images.map((src, i) => (
+    <button
+      type="button"
+      class="portfolio-item"
+      aria-label={`Open product image ${i + 1}`}
+    >
+      <img
+        src={src}
+        alt={`Knitwear product ${i + 1} – M.M. Knitwear Ltd. Bangladesh`}
+        loading={i < 8 ? 'eager' : 'lazy'}
+        width="400"
+        height="400"
+      />
+      <span class="portfolio-item__overlay"><span>View product</span></span>
+    </button>
+  ))}
+</div>
+
+<script>
+  const grid = document.querySelector('[data-portfolio]');
+  if (grid) {
+    const items = Array.from(grid.querySelectorAll('.portfolio-item'));
+    const images = items.map((item) => item.querySelector('img').getAttribute('src'));
+    let index = null;
+    let box = null;
+    let prevFocus = null;
+
+    const render = () => {
+      if (!box) return;
+      const img = box.querySelector('.lightbox__img');
+      img.src = images[index];
+      img.alt = `Product ${index + 1}`;
+    };
+
+    const prev = () => {
+      index = (index - 1 + images.length) % images.length;
+      render();
+    };
+    const next = () => {
+      index = (index + 1) % images.length;
+      render();
+    };
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    };
+
+    const close = () => {
+      if (!box) return;
+      box.remove();
+      box = null;
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+      if (prevFocus) prevFocus.focus();
+    };
+
+    const open = (i) => {
+      index = i;
+      prevFocus = document.activeElement;
+      box = document.createElement('div');
+      box.className = 'lightbox';
+      box.setAttribute('role', 'dialog');
+      box.setAttribute('aria-modal', 'true');
+      box.setAttribute('aria-label', 'Image viewer');
+      box.innerHTML = `
+        <img class="lightbox__img" src="${images[index]}" alt="Product ${index + 1}" />
+        <button type="button" class="lightbox__close" aria-label="Close">&times;</button>
+        <button type="button" class="lightbox__nav lightbox__nav--prev" aria-label="Previous image">&lsaquo;</button>
+        <button type="button" class="lightbox__nav lightbox__nav--next" aria-label="Next image">&rsaquo;</button>`;
+      document.body.appendChild(box);
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', onKey);
+      box.addEventListener('click', (e) => {
+        if (e.target === box) close();
+      });
+      box.querySelector('.lightbox__close').addEventListener('click', close);
+      box.querySelector('.lightbox__nav--prev').addEventListener('click', (e) => {
+        e.stopPropagation();
+        prev();
+      });
+      box.querySelector('.lightbox__nav--next').addEventListener('click', (e) => {
+        e.stopPropagation();
+        next();
+      });
+      box.querySelector('.lightbox__close').focus();
+    };
+
+    items.forEach((item, i) => item.addEventListener('click', () => open(i)));
+  }
+</script>

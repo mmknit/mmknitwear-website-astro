@@ -1,5 +1,4 @@
 ---
-import MobileNav from './react/MobileNav';
 import { divisions } from '../data/divisions';
 
 const base = import.meta.env.BASE_URL;
@@ -69,8 +68,63 @@ const isActiveChild = (href: string) => pagePath === base.replace(/\/$/, '') + h
         <a href={base + 'contact/'} aria-current={active === 'contact' ? 'page' : undefined}>Contact</a>
       </nav>
 
-      <div class="header-cta">
-        <MobileNav nav={NAV} active={active} client:idle />
+      <div class="header-cta" data-mobile-nav>
+        <button
+          type="button"
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <span class="nav-toggle__bars" />
+        </button>
+
+        <div class="mobile-nav" id="mobile-menu" aria-hidden="true">
+          <div class="mobile-nav__backdrop" />
+          <div class="mobile-nav__panel" role="dialog" aria-label="Menu">
+            <button type="button" class="mobile-nav__close" aria-label="Close menu">
+              &times;
+            </button>
+            {NAV.map((item) => (
+              <div class="mobile-nav__group">
+                <div class="mobile-nav__row">
+                  <a
+                    href={base + item.href.slice(1)}
+                    aria-current={active === item.key ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                  {item.children && (
+                    <button
+                      type="button"
+                      class="mobile-nav__toggle"
+                      aria-expanded="false"
+                      aria-controls={`mobile-sub-${item.key}`}
+                      aria-label={`Toggle ${item.label} submenu`}
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+                {item.children && (
+                  <div class="mobile-nav__sub" id={`mobile-sub-${item.key}`}>
+                    {item.children.map((c) => (
+                      <a href={base + c.href.slice(1)}>{c.label}</a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            <a
+              href={base + 'contact/'}
+              aria-current={active === 'contact' ? 'page' : undefined}
+            >
+              Contact
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -145,3 +199,38 @@ const isActiveChild = (href: string) => pagePath === base.replace(/\/$/, '') + h
     display: none;
   }
 </style>
+
+<script>
+  const root = document.querySelector('[data-mobile-nav]');
+  if (root) {
+    const panel = root.querySelector('.mobile-nav');
+    const toggle = root.querySelector('.nav-toggle');
+    const closeBtn = root.querySelector('.mobile-nav__close');
+    const backdrop = root.querySelector('.mobile-nav__backdrop');
+
+    const setOpen = (open) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      panel.classList.toggle('is-open', open);
+      panel.setAttribute('aria-hidden', String(!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    toggle.addEventListener('click', () => setOpen(true));
+    closeBtn.addEventListener('click', () => setOpen(false));
+    backdrop.addEventListener('click', () => setOpen(false));
+    root.querySelectorAll('.mobile-nav__panel a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+    root.querySelectorAll('.mobile-nav__toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        const sub = document.getElementById(btn.getAttribute('aria-controls'));
+        if (sub) sub.classList.toggle('is-open', !isOpen);
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+  }
+</script>

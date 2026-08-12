@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroSlider from '../components/react/HeroSlider';
-import Counter from '../components/react/Counter';
+import HeroSlider from '../components/HeroSlider.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import BrandWall from '../components/BrandWall.astro';
 import CertWall from '../components/CertWall.astro';
@@ -119,7 +118,7 @@ const jsonLd = [ld(organization), ld(website)];
 ---
 
 <BaseLayout title={title} description={description} canonical="/" keywords={keywords} jsonLd={jsonLd} preloadImage={slides[0].image} active="home">
-  <HeroSlider slides={slides} client:load />
+  <HeroSlider slides={slides} />
 
   <section class="section">
     <div class="container">
@@ -211,7 +210,9 @@ const jsonLd = [ld(organization), ld(website)];
           <div class="stat reveal">
             <div class="stat__label">{s.label}</div>
             <div class="stat__value">
-              <Counter end={s.end} suffix={s.suffix} client:idle />
+              <span class="stat__count" data-count-to={s.end} data-suffix={s.suffix}>
+                {s.end.toLocaleString()}{s.suffix}
+              </span>
             </div>
             <div class="stat__note">{s.note}</div>
           </div>
@@ -267,3 +268,38 @@ const jsonLd = [ld(organization), ld(website)];
     .grid--4 { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  const counters = Array.from(document.querySelectorAll('[data-count-to]'));
+  const format = (n) => n.toLocaleString();
+  const duration = 1800;
+
+  counters.forEach((el) => {
+    const end = Number(el.dataset.countTo);
+    const suffix = el.dataset.suffix ?? '';
+    let started = false;
+
+    const run = () => {
+      started = true;
+      const startTime = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = format(Math.round(end * eased)) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !started) {
+          run();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+  });
+</script>
