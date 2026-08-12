@@ -11,7 +11,7 @@ const u = (p: string) => base + p;
 
 const title = 'About Us | M.M. Knitwear Ltd. – Knitwear Manufacturer in Bangladesh';
 const description =
-  'Founded in September 2001, M.M. Knitwear Ltd. is a 100% export-oriented knit composite manufacturer in Gazipur, Bangladesh with 10,982 employees and 200,000 pieces of daily production capacity.';
+  '100% export-oriented knit composite manufacturer in Gazipur, Bangladesh since 2001 — 200,000 pieces of daily capacity.';
 const keywords =
   'about mm knitwear, knit composite manufacturer bangladesh, export oriented garment factory, garment factory gazipur, mm knitwear history';
 
@@ -216,7 +216,7 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
           {pillars.map((p) => (
             <div class="card pillar reveal">
               <div class="pillar__icon">
-                <img src={u(p.icon)} alt="" width="56" height="56" loading="lazy" />
+                <img src={u(p.icon)} alt={`${p.title} icon`} width="56" height="56" loading="lazy" />
               </div>
               <h3>{p.title}</h3>
               <p>{p.text}</p>

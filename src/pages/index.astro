@@ -15,7 +15,7 @@ const u = (p: string) => base + p;
 
 const title = 'Knitwear Manufacturer in Bangladesh | M.M. Knitwear Ltd.';
 const description =
-  'M.M. Knitwear Ltd. is a 100% export-oriented knitwear manufacturer in Bangladesh, producing 200,000 garments daily since 2001. Vertically integrated knit composite facility in Gazipur.';
+  'M.M. Knitwear Ltd. — 100% export-oriented knitwear manufacturer in Bangladesh producing 200,000 garments a day since 2001.';
 const keywords =
   'knitwear manufacturer in bangladesh, knit composite factory, export oriented garments manufacturer, t-shirt manufacturer bangladesh, circular knitting factory, garment factory gazipur';
 
@@ -98,7 +98,9 @@ const organization = {
   },
   sameAs: [
     'https://www.facebook.com/mmknit',
+    'https://www.instagram.com/mmknitbd/',
     'https://www.linkedin.com/company/m-m-knitwear-ltd/',
+    'https://www.youtube.com/@mmknitwear',
   ],
 };
 
@@ -132,7 +134,7 @@ const jsonLd = [ld(organization), ld(website)];
           <article class="card feature-card reveal">
             <span class="feature-card__num">{String(i + 1).padStart(2, '0')}</span>
             <div class="feature-card__icon">
-              <img src={u(s.icon)} alt="" width="72" height="72" loading="lazy" />
+              <img src={u(s.icon)} alt={`${s.title} icon`} width="72" height="72" loading="lazy" />
             </div>
             <h3>{s.title}</h3>
             <p>{s.text}</p>
@@ -163,7 +165,7 @@ const jsonLd = [ld(organization), ld(website)];
           <SectionTitle
             eyebrow="Our Journey"
             title="One of Bangladesh's Leading Knitwear Manufacturers"
-            text="Established in 2001, M.M. Knitwear specialises in organic cotton and fast fashion knitwear for global brands, independent boutiques and specialist retailers."
+            text="Established in 2001, M.M. Knitwear Ltd. is a 100% export-oriented knitwear manufacturer in Bangladesh, specialising in organic cotton and fast fashion knitwear for global brands, independent boutiques and specialist retailers."
           />
           <p>
             Our fully integrated knit composite facility in Gazipur produces 200,000 garments
