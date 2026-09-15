@@ -79,4 +79,4 @@ export const products = [
   'Loungewear',
 ];
 
-export const clientBrands = Array.from({ length: 18 }, (_, i) => i + 1);
+export const clientBrands = Array.from({ length: 19 }, (_, i) => i + 1);
