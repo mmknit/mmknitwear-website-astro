@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL;
 
 <style>
   .division-subnav {
-    background: var(--surface);
+    background: var(--bg-alt);
     border-bottom: 1px solid var(--line);
   }
 
@@ -44,7 +44,7 @@ const base = import.meta.env.BASE_URL;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--brand-800);
+    color: var(--ink);
   }
 
   .division-subnav__links {
@@ -67,19 +67,19 @@ const base = import.meta.env.BASE_URL;
     background: #fff;
     font-size: 0.88rem;
     font-weight: 600;
-    color: var(--slate);
+    color: var(--text);
     white-space: nowrap;
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
 
   .division-subnav__links a:hover {
     border-color: var(--brand);
-    color: var(--brand-700);
+    color: var(--link);
   }
 
   .division-subnav__links a[aria-current='page'] {
-    background: var(--brand);
-    border-color: var(--brand);
+    background: var(--link);
+    border-color: var(--link);
     color: #fff;
   }
 

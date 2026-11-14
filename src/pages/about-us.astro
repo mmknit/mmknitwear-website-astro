@@ -82,7 +82,7 @@ const markets = [
   { country: 'UK', pct: 1.4 },
 ];
 
-const pieColors = ['#00c2ff', '#0ea5e9', '#0891b2', '#0e7490', '#155e75', '#34d399', '#f59e0b', '#f43f5e'];
+const pieColors = ['#00A8EC', '#91D9F5', '#D1EAF6', '#0079AC', '#355264', '#34d399', '#f59e0b', '#f43f5e'];
 let pieAcc = 0;
 const pieSegments = markets.map((m, i) => {
   const from = Math.round(pieAcc * 10) / 10;
@@ -365,7 +365,7 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
     text-align: center;
     padding: 1.75rem 1rem;
     border-radius: var(--radius);
-    background: var(--surface);
+    background: var(--bg-alt);
     border: 1px solid var(--line);
   }
 
@@ -373,12 +373,12 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
     display: block;
     font-family: var(--font-head);
     font-size: 1.15rem;
-    color: var(--brand-800);
+    color: var(--ink);
   }
 
   .quickfacts__item span {
     font-size: 0.85rem;
-    color: var(--muted);
+    color: var(--text);
   }
 
   @media (max-width: 860px) {
@@ -387,7 +387,7 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
 
   .lead {
     font-size: 1.125rem;
-    color: var(--slate);
+    color: var(--text);
     max-width: 820px;
   }
 
@@ -447,7 +447,7 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
     width: 64px;
     height: 64px;
     border-radius: 14px;
-    background: var(--surface-2);
+    background: var(--bg-light);
     display: grid;
     place-items: center;
     padding: 0.8rem;
@@ -517,14 +517,14 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
   }
 
   .mini-stat small {
-    color: var(--muted);
+    color: var(--text);
   }
 
   .center-note {
     text-align: center;
     max-width: 820px;
     margin: 1.75rem auto 0;
-    color: var(--muted);
+    color: var(--text);
     font-size: 0.95rem;
   }
 
@@ -583,20 +583,20 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
     font-family: var(--font-head);
     font-size: 0.78rem;
     font-weight: 700;
-    color: var(--brand-800);
+    color: var(--ink);
   }
 
   .bar__fill {
     width: 100%;
     border-radius: 8px 8px 0 0;
-    background: linear-gradient(180deg, var(--brand), var(--brand-600));
+    background: var(--brand);
     transition: height 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .bar__year {
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--muted);
+    color: var(--text);
   }
 
   .pie-wrap {
@@ -637,7 +637,7 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
   }
 
   .pie-legend strong {
-    color: var(--brand-800);
+    color: var(--ink);
     margin-left: auto;
   }
 
@@ -666,12 +666,12 @@ const jsonLd = [ld(breadcrumb('About Us', '/about-us/')), ld(aboutPage)];
     font-size: 0.95rem;
   }
 
-  .buildings span { color: var(--slate); }
+  .buildings span { color: var(--text); }
   .buildings strong { color: var(--ink); }
 
   .extra-sheds {
     margin-top: 1.25rem;
     font-size: 0.9rem;
-    color: var(--muted);
+    color: var(--text);
   }
 </style>
