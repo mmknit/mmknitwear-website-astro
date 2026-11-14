@@ -28,6 +28,11 @@ coverage/
 # Misc
 *.local
 
+# Environment / secrets (never commit or push)
+.env
+.env.*
+!.env.example
+
 # Original static site export (reference only)
 mmknitwear.com-html/
 
