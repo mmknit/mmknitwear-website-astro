@@ -143,29 +143,35 @@ const jsonLd = [ld(organization), ld(website)];
     </div>
   </section>
 
-  <section class="section section--surface">
+  <section class="section section--surface about-section reveal">
     <div class="container">
-      <div class="split">
-        <div class="split__media reveal">
-          <img src={u('upload/mm-factory-1281.jpg')} alt="M.M. Knitwear factory in Konabari, Gazipur" loading="lazy" />
-          <div class="split__badge">
-            <div>
-              <strong>2001</strong>
-              <span>Established</span>
-            </div>
-            <div style="width:1px;height:38px;background:var(--line);"></div>
-            <div>
-              <strong>10,982</strong>
-              <span>Employees</span>
-            </div>
-          </div>
-        </div>
-        <div class="split__body reveal">
+      <div class="about">
+        <div class="about__intro">
           <SectionTitle
             eyebrow="Our Journey"
             title="One of Bangladesh's Leading Knitwear Manufacturers"
-            text="Established in 2001, M.M. Knitwear Ltd. is a 100% export-oriented knitwear manufacturer in Bangladesh, specialising in organic cotton and fast fashion knitwear for global brands, independent boutiques and specialist retailers."
           />
+          <dl class="about__facts">
+            <div class="about__fact">
+              <dd>2001</dd>
+              <dt>Established</dt>
+            </div>
+            <div class="about__fact">
+              <dd>200,000</dd>
+              <dt>Garments / day</dt>
+            </div>
+            <div class="about__fact">
+              <dd>10,982</dd>
+              <dt>Employees</dt>
+            </div>
+          </dl>
+        </div>
+        <div class="about__body">
+          <p class="about__lead">
+            Established in 2001, M.M. Knitwear Ltd. is a 100% export-oriented knitwear manufacturer
+            in Bangladesh, specialising in organic cotton and fast fashion knitwear for global
+            brands, independent boutiques and specialist retailers.
+          </p>
           <p>
             Our fully integrated knit composite facility in Gazipur produces 200,000 garments
             per day across more than 1,523,000 square feet of factory space, supported by a
@@ -266,6 +272,77 @@ const jsonLd = [ld(organization), ld(website)];
 
   @media (max-width: 560px) {
     .grid--4 { grid-template-columns: 1fr; }
+  }
+
+  .about-section {
+    padding-block: clamp(3.25rem, 6vw, 5rem);
+  }
+
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+
+  .about__intro .section-head {
+    margin-bottom: 1.5rem;
+  }
+
+  .about__facts {
+    display: flex;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .about__fact {
+    padding-right: 1.25rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .about__fact:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .about__fact dd {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.3rem;
+    line-height: 1.1;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .about__fact dt {
+    margin-top: 0.35rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .about__lead {
+    font-size: 1.05rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .about__body p + p {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .about {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .about__facts {
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
   }
 </style>
 
