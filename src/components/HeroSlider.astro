@@ -14,12 +14,16 @@ const { slides, interval = 6000 } = Astro.props;
 
 <section class="hero" data-hero data-interval={interval} aria-roledescription="carousel" aria-label="Highlights">
   {slides.map((slide, i) => (
-    <div
+    <img
       class={`hero__slide${i === 0 ? ' is-active' : ''}`}
       role="group"
       aria-roledescription="slide"
       aria-hidden={i !== 0}
-      style={`background-image:url(${slide.image});background-size:cover;background-position:center center;background-repeat:no-repeat;`}
+      src={i === 0 ? slide.image : undefined}
+      data-src={i === 0 ? undefined : slide.image}
+      alt=""
+      fetchpriority={i === 0 ? 'high' : undefined}
+      decoding="async"
     />
   ))}
 
@@ -68,8 +72,17 @@ const { slides, interval = 6000 } = Astro.props;
       dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
     };
 
+    const loadSlide = (i) => {
+      const el = slides[i];
+      if (el && el.dataset.src) {
+        el.src = el.dataset.src;
+        el.removeAttribute('data-src');
+      }
+    };
+
     const go = (next) => {
       index = ((next % slides.length) + slides.length) % slides.length;
+      [index, (index + 1) % slides.length].forEach(loadSlide);
       render();
     };
 
@@ -93,5 +106,13 @@ const { slides, interval = 6000 } = Astro.props;
     dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
 
     start();
+
+    // Defer off-screen slide images until after first paint so they never
+    // contend with the LCP image on slow connections.
+    window.addEventListener('load', () => {
+      window.setTimeout(() => {
+        slides.forEach((_, i) => loadSlide(i));
+      }, 2000);
+    });
   }
 </script>
