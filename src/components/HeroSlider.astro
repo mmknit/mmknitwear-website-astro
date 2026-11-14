@@ -14,17 +14,20 @@ const { slides, interval = 6000 } = Astro.props;
 
 <section class="hero" data-hero data-interval={interval} aria-roledescription="carousel" aria-label="Highlights">
   {slides.map((slide, i) => (
-    <img
+    <div
       class={`hero__slide${i === 0 ? ' is-active' : ''}`}
       role="group"
       aria-roledescription="slide"
       aria-hidden={i !== 0}
-      src={i === 0 ? slide.image : undefined}
-      data-src={i === 0 ? undefined : slide.image}
-      alt=""
-      fetchpriority={i === 0 ? 'high' : undefined}
-      decoding="async"
-    />
+    >
+      <img
+        src={i === 0 ? slide.image : undefined}
+        data-src={i === 0 ? undefined : slide.image}
+        alt=""
+        fetchpriority={i === 0 ? 'high' : undefined}
+        decoding="async"
+      />
+    </div>
   ))}
 
   <h1 class="sr-only">{slides[0].title ?? 'M.M. Knitwear Ltd.'}</h1>
@@ -73,10 +76,10 @@ const { slides, interval = 6000 } = Astro.props;
     };
 
     const loadSlide = (i) => {
-      const el = slides[i];
-      if (el && el.dataset.src) {
-        el.src = el.dataset.src;
-        el.removeAttribute('data-src');
+      const img = slides[i].querySelector('img[data-src]');
+      if (img) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
       }
     };
 
